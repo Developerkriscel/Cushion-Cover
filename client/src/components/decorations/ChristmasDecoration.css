@@ -1,0 +1,178 @@
+.christmas-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.christmas-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(30px, 5vw, 54px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 20px);
+  padding: clamp(7px, 1.2vw, 12px) clamp(18px, 4vw, 58px) 0;
+  opacity: 0.88;
+}
+
+.christmas-lights::before {
+  content: "";
+  position: absolute;
+  top: clamp(8px, 1.4vw, 14px);
+  left: clamp(16px, 4vw, 56px);
+  right: clamp(16px, 4vw, 56px);
+  height: 1px;
+  background: rgba(46, 75, 54, 0.28);
+}
+
+.christmas-bulb {
+  position: relative;
+  width: clamp(7px, 1vw, 11px);
+  height: clamp(7px, 1vw, 11px);
+  margin-top: clamp(4px, 0.8vw, 8px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff9df 0%, #f7c948 42%, #d49a1e 100%);
+  box-shadow:
+    0 0 7px rgba(247, 201, 72, 0.55),
+    0 0 16px rgba(212, 154, 30, 0.24);
+  animation: christmasLightGlow 3.8s ease-in-out infinite;
+}
+
+.christmas-bulb::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 1px;
+  height: 5px;
+  background: rgba(46, 75, 54, 0.42);
+  transform: translateX(-50%);
+}
+
+.christmas-bulb:nth-child(3n + 1) {
+  background: radial-gradient(circle at 35% 30%, #fff1f1 0%, #df3b3b 45%, #9d1f1f 100%);
+  box-shadow:
+    0 0 7px rgba(223, 59, 59, 0.5),
+    0 0 16px rgba(157, 31, 31, 0.22);
+}
+
+.christmas-bulb:nth-child(3n + 2) {
+  background: radial-gradient(circle at 35% 30%, #f2fff5 0%, #2fad5f 45%, #17703d 100%);
+  box-shadow:
+    0 0 7px rgba(47, 173, 95, 0.5),
+    0 0 16px rgba(23, 112, 61, 0.22);
+  animation-delay: 0.45s;
+}
+
+.christmas-bulb:nth-child(3n) {
+  animation-delay: 0.9s;
+}
+
+.christmas-snow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.snowflake {
+  position: absolute;
+  top: -14px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.38);
+  opacity: 0.38;
+  animation-name: christmasSnowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.snowflake:nth-child(4n) {
+  width: 3px;
+  height: 3px;
+  opacity: 0.28;
+}
+
+.snowflake:nth-child(5n) {
+  width: 7px;
+  height: 7px;
+  opacity: 0.32;
+}
+
+.snowflake:nth-child(1) { left: 3%; animation-duration: 12s; animation-delay: -2s; }
+.snowflake:nth-child(2) { left: 8%; animation-duration: 15s; animation-delay: -7s; }
+.snowflake:nth-child(3) { left: 12%; animation-duration: 11s; animation-delay: -4s; }
+.snowflake:nth-child(4) { left: 17%; animation-duration: 17s; animation-delay: -10s; }
+.snowflake:nth-child(5) { left: 21%; animation-duration: 13s; animation-delay: -1s; }
+.snowflake:nth-child(6) { left: 26%; animation-duration: 18s; animation-delay: -12s; }
+.snowflake:nth-child(7) { left: 31%; animation-duration: 14s; animation-delay: -6s; }
+.snowflake:nth-child(8) { left: 36%; animation-duration: 16s; animation-delay: -9s; }
+.snowflake:nth-child(9) { left: 40%; animation-duration: 12s; animation-delay: -5s; }
+.snowflake:nth-child(10) { left: 45%; animation-duration: 19s; animation-delay: -13s; }
+.snowflake:nth-child(11) { left: 49%; animation-duration: 13s; animation-delay: -3s; }
+.snowflake:nth-child(12) { left: 54%; animation-duration: 17s; animation-delay: -11s; }
+.snowflake:nth-child(13) { left: 58%; animation-duration: 15s; animation-delay: -8s; }
+.snowflake:nth-child(14) { left: 63%; animation-duration: 12s; animation-delay: -2s; }
+.snowflake:nth-child(15) { left: 67%; animation-duration: 18s; animation-delay: -14s; }
+.snowflake:nth-child(16) { left: 72%; animation-duration: 14s; animation-delay: -6s; }
+.snowflake:nth-child(17) { left: 76%; animation-duration: 16s; animation-delay: -10s; }
+.snowflake:nth-child(18) { left: 81%; animation-duration: 11s; animation-delay: -4s; }
+.snowflake:nth-child(19) { left: 85%; animation-duration: 19s; animation-delay: -15s; }
+.snowflake:nth-child(20) { left: 90%; animation-duration: 13s; animation-delay: -7s; }
+.snowflake:nth-child(21) { left: 94%; animation-duration: 17s; animation-delay: -12s; }
+.snowflake:nth-child(22) { left: 98%; animation-duration: 15s; animation-delay: -5s; }
+.snowflake:nth-child(23) { left: 6%; animation-duration: 18s; animation-delay: -14s; }
+.snowflake:nth-child(24) { left: 24%; animation-duration: 12s; animation-delay: -8s; }
+.snowflake:nth-child(25) { left: 43%; animation-duration: 16s; animation-delay: -11s; }
+.snowflake:nth-child(26) { left: 61%; animation-duration: 13s; animation-delay: -3s; }
+.snowflake:nth-child(27) { left: 79%; animation-duration: 18s; animation-delay: -9s; }
+.snowflake:nth-child(28) { left: 92%; animation-duration: 14s; animation-delay: -6s; }
+
+@keyframes christmasSnowfall {
+  0% {
+    transform: translate3d(0, -16px, 0);
+  }
+  100% {
+    transform: translate3d(28px, 105vh, 0);
+  }
+}
+
+@keyframes christmasLightGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.64;
+    filter: brightness(0.92);
+  }
+  50% {
+    transform: scale(1.14);
+    opacity: 1;
+    filter: brightness(1.16);
+  }
+}
+
+@media (max-width: 768px) {
+  .christmas-lights {
+    gap: clamp(7px, 2vw, 14px);
+    padding-inline: 12px;
+  }
+
+  .christmas-lights::before {
+    left: 10px;
+    right: 10px;
+  }
+
+  .christmas-bulb {
+    width: 7px;
+    height: 7px;
+  }
+
+  .snowflake {
+    opacity: 0.28;
+  }
+}

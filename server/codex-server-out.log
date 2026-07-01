@@ -1,0 +1,1019 @@
+
+> elegant-home-decor-server@1.0.0 dev
+> nodemon server.js
+
+[33m[nodemon] 3.1.14[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node server.js`[39m
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782880824451 [32m200[0m 450.606 ms - 4[0m
+[0mGET /api/festive/active?_=1782880832881 [32m200[0m 36.610 ms - 4[0m
+[0mGET /api/categories [36m304[0m 49.833 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 69.804 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 135.528 ms - -[0m
+[0mGET /api/admin/products [32m200[0m 172.400 ms - 6079[0m
+[0mGET /api/categories [36m304[0m 42.768 ms - -[0m
+[0mGET /api/admin/orders [32m200[0m 196.662 ms - 21109[0m
+[0mGET /api/auth/admin/verify [36m304[0m 35.657 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 67.237 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 101.004 ms - -[0m
+[0mGET /api/admin/stats [32m200[0m 340.572 ms - 7913[0m
+[0mGET /api/admin/orders [36m304[0m 141.382 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 368.137 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 105.893 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 323.594 ms - -[0m
+[0mPOST /api/payments/create-payment-intent [33m401[0m 1.595 ms - 1272[0m
+[0mPUT /api/admin/festive/edit/6a43a366af2855f0fd5c9782 [32m200[0m 202.398 ms - 547[0m
+[0mGET /api/categories [36m304[0m 37.408 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 88.869 ms - -[0m
+[0mGET /api/festive/active?_=1782880852262 [32m200[0m 49.633 ms - 547[0m
+[0mGET /api/admin/festive/all [32m200[0m 123.101 ms - 1223[0m
+[0mGET /api/admin/products [36m304[0m 135.954 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 168.703 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 299.900 ms - -[0m
+[0mGET /api/festive/active?_=1782880853628 [32m200[0m 31.663 ms - 547[0m
+[0mGET /api/categories [36m304[0m 32.861 ms - -[0m
+[0mGET /api/categories [36m304[0m 41.352 ms - -[0m
+[0mGET /api/products?limit=8 [32m200[0m 118.270 ms - 6121[0m
+[0mGET /api/products?limit=8 [36m304[0m 106.282 ms - -[0m
+[0mGET /api/festive/active?_=1782880898636 [32m200[0m 71.575 ms - 547[0m
+[0mGET /api/festive/active?_=1782880958631 [32m200[0m 75.287 ms - 547[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782881018635 [32m200[0m 53.293 ms - 547[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 2.613 ms - 1269[0m
+[0mGET /api/festive/active?_=1782881078642 [32m200[0m 34.426 ms - 547[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mPOST /api/payments/create-payment-intent [33m400[0m 6.572 ms - 1259[0m
+[0mGET /api/festive/active?_=1782881183635 [32m200[0m 138.721 ms - 547[0m
+[0mGET /api/festive/active?_=1782881213632 [32m200[0m 37.241 ms - 547[0m
+[0mGET /api/festive/active?_=1782881255779 [32m200[0m 35.907 ms - 547[0m
+[0mGET /api/users/addresses [36m304[0m 287.845 ms - -[0m
+[0mGET /api/orders/my [32m200[0m 390.911 ms - 18359[0m
+[0mGET /api/users/addresses [36m304[0m 135.242 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 175.831 ms - -[0m
+[0mGET /api/festive/active?_=1782881272911 [32m200[0m 75.833 ms - 547[0m
+[0mPOST /api/orders [32m201[0m 442.989 ms - 870[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 262.299 ms - 265[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 274.272 ms - 265[0m
+[0mGET /api/festive/active?_=1782881303635 [32m200[0m 73.536 ms - 547[0m
+[0mGET /api/festive/active?_=1782881333636 [32m200[0m 151.117 ms - 547[0m
+[0mGET /api/festive/active?_=1782881363632 [32m200[0m 73.365 ms - 547[0m
+[0mGET /api/festive/active?_=1782881392914 [32m200[0m 167.447 ms - 547[0m
+[0mGET /api/festive/active?_=1782881423629 [32m200[0m 47.166 ms - 547[0m
+[0mGET /api/festive/active?_=1782881453629 [32m200[0m 37.522 ms - 547[0m
+[0mGET /api/festive/active?_=1782881498632 [32m200[0m 46.592 ms - 547[0m
+[0mGET /api/festive/active?_=1782881558629 [32m200[0m 36.901 ms - 547[0m
+[0mGET /api/festive/active?_=1782881618629 [32m200[0m 139.191 ms - 547[0m
+[0mGET /api/festive/active?_=1782881678634 [32m200[0m 140.378 ms - 547[0m
+[0mGET /api/festive/active?_=1782881738627 [32m200[0m 43.410 ms - 547[0m
+[0mGET /api/festive/active?_=1782881798640 [32m200[0m 81.636 ms - 547[0m
+[0mGET /api/festive/active?_=1782881858635 [32m200[0m 158.357 ms - 547[0m
+[0mGET /api/festive/active?_=1782881918633 [32m200[0m 171.119 ms - 547[0m
+[0mGET /api/festive/active?_=1782881978629 [32m200[0m 178.882 ms - 547[0m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mPOST /api/auth/login [32m200[0m 309.311 ms - 798[0m
+[0mGET /api/users/addresses [36m304[0m 68.136 ms - -[0m
+[0mPOST /api/cart/sync [31m500[0m 125.743 ms - 695[0m
+[0mGET /api/orders/my [32m200[0m 125.643 ms - 20105[0m
+[0mGET /api/users/addresses [36m304[0m 69.367 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 72.828 ms - -[0m
+[0mGET /api/festive/active?_=1782883599898 [32m200[0m 32.788 ms - 547[0m
+[0mPOST /api/orders [31m500[0m 36.980 ms - 1338[0m
+[0mPOST /api/orders [31m500[0m 38.312 ms - 1338[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782883630638 [32m200[0m 42.087 ms - 547[0m
+[0mGET /api/festive/active?_=1782883660630 [32m200[0m 33.105 ms - 547[0m
+[0mGET /api/festive/active?_=1782883718629 [32m200[0m 35.121 ms - 547[0m
+[0mGET /api/festive/active?_=1782883778630 [32m200[0m 36.892 ms - 547[0m
+[0mPOST /api/auth/login [32m200[0m 332.157 ms - 366[0m
+[0mGET /api/orders/my [36m304[0m 72.152 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 62.646 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 66.664 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 65.914 ms - -[0m
+[0mGET /api/festive/active?_=1782883810637 [32m200[0m 34.022 ms - 547[0m
+[0mGET /api/festive/active?_=1782883819074 [32m200[0m 40.997 ms - 547[0m
+[0mGET /api/festive/active?_=1782883819076 [32m200[0m 40.891 ms - 547[0m
+[0mPOST /api/auth/login [32m200[0m 301.746 ms - 366[0m
+[0mGET /api/admin/users [36m304[0m 136.228 ms - -[0m
+[0mGET /api/admin/orders [32m200[0m 179.739 ms - 22993[0m
+[0mGET /api/admin/products [36m304[0m 182.308 ms - -[0m
+[0mPOST /api/cart/sync [31m500[0m 225.051 ms - 695[0m
+[0mGET /api/auth/admin/verify [36m304[0m 38.969 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 118.666 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 79.579 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 42.573 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 136.982 ms - -[0m
+[0mGET /api/categories [36m304[0m 335.427 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 106.411 ms - -[0m
+[0mGET /api/admin/stats [32m200[0m 350.746 ms - 8109[0m
+[0mGET /api/categories [36m304[0m 29.548 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 107.235 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 107.459 ms - -[0m
+[0mGET /api/festive/active?_=1782883840627 [32m200[0m 33.655 ms - 547[0m
+[0mGET /api/festive/active?_=1782883849088 [32m200[0m 29.408 ms - 547[0m
+[calculatePrices] Input items: [
+  {
+    product: 'p2',
+    name: 'Sage Bloom Cushion Cover Set',
+    quantity: 1,
+    image: 'https://res.cloudinary.com/djligggal/image/upload/v1782654756/lucas-de-moura-b0kTwnDM1O0-unsplash_z0di7l.jpg',
+    price: 1199,
+    color: 'Sage',
+    size: '16 x 16',
+    fabric: 'Cotton Linen Blend'
+  }
+]
+[calculatePrices] Product IDs: [ 'p2' ]
+[0mPOST /api/orders [31m500[0m 33.579 ms - 1338[0m
+[0mGET /api/festive/active?_=1782883870630 [32m200[0m 40.971 ms - 547[0m
+[0mGET /api/festive/active?_=1782883879632 [32m200[0m 35.969 ms - 547[0m
+[0mGET /api/festive/active?_=1782883900627 [32m200[0m 30.263 ms - 547[0m
+[0mGET /api/festive/active?_=1782883909630 [32m200[0m 32.498 ms - 547[0m
+[0mGET /api/users/addresses [36m304[0m 84.676 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 145.036 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 79.230 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 87.361 ms - -[0m
+[0mGET /api/festive/active?_=1782883929899 [32m200[0m 38.667 ms - 547[0m
+[calculatePrices] Input items: [
+  {
+    product: '6a420ae3dba8aa50d77ebdf7',
+    name: "Chef's Gift Apron and Mitt Set",
+    quantity: 1,
+    image: 'https://res.cloudinary.com/djligggal/image/upload/v1782655432/olga-ferina-7h59Wrc4qsA-unsplash_xc2ai0.jpg',
+    price: 1499,
+    color: 'Rust',
+    size: 'Free Size',
+    fabric: 'Canvas cotton'
+  }
+]
+[calculatePrices] Product IDs: [ '6a420ae3dba8aa50d77ebdf7' ]
+[calculatePrices] Found products: [
+  {
+    _id: new ObjectId('6a420ae3dba8aa50d77ebdf7'),
+    name: "Chef's Gift Apron and Mitt Set",
+    price: 1899,
+    discountPrice: 1499
+  }
+]
+[calculatePrices] Item: 6a420ae3dba8aa50d77ebdf7 -> Product: Chef's Gift Apron and Mitt Set Price: 1499
+[0mPOST /api/orders [32m201[0m 130.325 ms - 871[0m
+[0mGET /api/festive/active?_=1782883939628 [32m200[0m 49.720 ms - 547[0m
+[0mGET /api/users/addresses [36m304[0m 71.879 ms - -[0m
+[0mGET /api/orders/my [32m200[0m 99.662 ms - 20977[0m
+[0mGET /api/users/addresses [36m304[0m 63.028 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 66.642 ms - -[0m
+[calculatePrices] Input items: [
+  {
+    product: '6a41fe087d5deaea089860ef',
+    name: 'Artisan Linen Apron',
+    quantity: 1,
+    image: 'https://res.cloudinary.com/djligggal/image/upload/v1782655012/golden-horn-bridge-dOQeGVGNmpk-unsplash_qpgwe1.jpg',
+    price: 999,
+    color: 'Natural',
+    size: 'Free Size',
+    fabric: 'Washed linen cotton'
+  }
+]
+[calculatePrices] Product IDs: [ '6a41fe087d5deaea089860ef' ]
+[calculatePrices] Found products: []
+[calculatePrices] Item: 6a41fe087d5deaea089860ef -> Product: undefined Price: 999
+[0mPOST /api/orders [32m201[0m 108.472 ms - 869[0m
+[0mGET /api/users/addresses [36m304[0m 70.341 ms - -[0m
+[0mGET /api/orders/my [32m200[0m 110.376 ms - 21847[0m
+[0mGET /api/users/addresses [36m304[0m 70.930 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 73.345 ms - -[0m
+[0mGET /api/festive/active?_=1782883959897 [32m200[0m 32.959 ms - 547[0m
+[calculatePrices] Input items: [
+  {
+    product: '6a420ae3dba8aa50d77ebdf7',
+    name: "Chef's Gift Apron and Mitt Set",
+    quantity: 1,
+    image: 'https://res.cloudinary.com/djligggal/image/upload/v1782655432/olga-ferina-7h59Wrc4qsA-unsplash_xc2ai0.jpg',
+    price: 1499,
+    color: 'Rust',
+    size: 'Free Size',
+    fabric: 'Canvas cotton'
+  }
+]
+[calculatePrices] Product IDs: [ '6a420ae3dba8aa50d77ebdf7' ]
+[calculatePrices] Found products: [
+  {
+    _id: new ObjectId('6a420ae3dba8aa50d77ebdf7'),
+    name: "Chef's Gift Apron and Mitt Set",
+    price: 1899,
+    discountPrice: 1499
+  }
+]
+[calculatePrices] Item: 6a420ae3dba8aa50d77ebdf7 -> Product: Chef's Gift Apron and Mitt Set Price: 1499
+[0mPOST /api/orders [32m201[0m 120.567 ms - 869[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 89.188 ms - 265[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 86.523 ms - 265[0m
+[0mGET /api/festive/active?_=1782883969629 [32m200[0m 128.928 ms - 547[0m
+[0mGET /api/festive/active?_=1782883989897 [32m200[0m 54.538 ms - 547[0m
+[0mGET /api/festive/active?_=1782883999632 [32m200[0m 32.382 ms - 547[0m
+[0mGET /api/festive/active?_=1782884019906 [32m200[0m 33.854 ms - 547[0m
+[0mGET /api/festive/active?_=1782884049909 [32m200[0m 30.352 ms - 547[0m
+[0mGET /api/festive/active?_=1782884078632 [32m200[0m 34.553 ms - 547[0m
+[0mGET /api/festive/active?_=1782884080632 [32m200[0m 42.498 ms - 547[0m
+[0mGET /api/festive/active?_=1782884110640 [32m200[0m 33.691 ms - 547[0m
+[0mGET /api/festive/active?_=1782884138631 [32m200[0m 34.229 ms - 547[0m
+[0mGET /api/festive/active?_=1782884140628 [32m200[0m 32.530 ms - 547[0m
+[0mGET /api/festive/active?_=1782884170642 [32m200[0m 31.456 ms - 547[0m
+[0mGET /api/festive/active?_=1782884198628 [32m200[0m 33.106 ms - 547[0m
+[0mGET /api/festive/active?_=1782884242136 [32m200[0m 39.694 ms - 547[0m
+[0mGET /api/festive/active?_=1782884252817 [32m200[0m 34.935 ms - 547[0m
+[0mGET /api/festive/active?_=1782884260638 [32m200[0m 31.973 ms - 547[0m
+[0mGET /api/festive/active?_=1782884269091 [32m200[0m 31.135 ms - 547[0m
+[0mGET /api/festive/active?_=1782884290641 [32m200[0m 32.803 ms - 547[0m
+[0mGET /api/festive/active?_=1782884299631 [32m200[0m 51.922 ms - 547[0m
+[0mGET /api/festive/active?_=1782884329632 [32m200[0m 36.282 ms - 547[0m
+[0mGET /api/festive/active?_=1782884378634 [32m200[0m 168.682 ms - 547[0m
+[0mGET /api/festive/active?_=1782884378646 [32m200[0m 162.094 ms - 547[0m
+[0mGET /api/festive/active?_=1782884438640 [32m200[0m 167.685 ms - 547[0m
+[0mGET /api/festive/active?_=1782884438639 [32m200[0m 167.418 ms - 547[0m
+[0mGET /api/festive/active?_=1782884498631 [32m200[0m 177.037 ms - 547[0m
+[0mGET /api/festive/active?_=1782884498632 [32m200[0m 184.412 ms - 547[0m
+[0mGET /api/festive/active?_=1782884519337 [32m200[0m 45.236 ms - 547[0m
+[0mGET /api/festive/active?_=1782884530643 [32m200[0m 44.078 ms - 547[0m
+[0mGET /api/festive/active?_=1782884539080 [32m200[0m 1744.503 ms - 547[0m
+[0mGET /api/festive/active?_=1782884560633 [32m200[0m 148.531 ms - 547[0m
+[0mGET /api/festive/active?_=1782884569635 [32m200[0m 148.791 ms - 547[0m
+[0mGET /api/festive/active?_=1782884599086 [32m200[0m 186.498 ms - 547[0m
+[0mGET /api/orders/my [36m304[0m 249.297 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 199.073 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 197.232 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 197.322 ms - -[0m
+[0mGET /api/festive/active?_=1782884608503 [32m200[0m 90.011 ms - 547[0m
+[0mGET /api/users/addresses [36m304[0m 281.161 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 201.685 ms - -[0m
+[0mGET /api/orders/my [32m200[0m 525.844 ms - 22717[0m
+[0mGET /api/orders/my [36m304[0m 479.477 ms - -[0m
+[0mGET /api/festive/active?_=1782884619907 [32m200[0m 162.400 ms - 547[0m
+[0mGET /api/festive/active?_=1782884629633 [32m200[0m 149.503 ms - 547[0m
+[0mGET /api/festive/active?_=1782884650631 [32m200[0m 146.145 ms - 547[0m
+[0mGET /api/festive/active?_=1782884659640 [32m200[0m 80.759 ms - 547[0m
+[0mGET /api/festive/active?_=1782884680628 [32m200[0m 32.930 ms - 547[0m
+[0mGET /api/festive/active?_=1782884738631 [32m200[0m 31.830 ms - 547[0m
+[0mGET /api/festive/active?_=1782884738629 [32m200[0m 36.885 ms - 547[0m
+[0mGET /api/festive/active?_=1782884798628 [32m200[0m 44.711 ms - 547[0m
+[0mGET /api/festive/active?_=1782884798643 [32m200[0m 33.265 ms - 547[0m
+[0mGET /api/festive/active?_=1782884858631 [32m200[0m 45.272 ms - 547[0m
+[0mGET /api/festive/active?_=1782884858631 [32m200[0m 43.244 ms - 547[0m
+[0mGET /api/festive/active?_=1782884918637 [32m200[0m 136.960 ms - 547[0m
+[0mGET /api/festive/active?_=1782884918639 [32m200[0m 145.928 ms - 547[0m
+[0mGET /api/festive/active?_=1782884978631 [32m200[0m 53.643 ms - 547[0m
+[0mGET /api/festive/active?_=1782884978632 [32m200[0m 61.397 ms - 547[0m
+[0mGET /api/festive/active?_=1782885038644 [32m200[0m 64.168 ms - 547[0m
+[0mGET /api/festive/active?_=1782885038643 [32m200[0m 69.024 ms - 547[0m
+[0mGET /api/festive/active?_=1782885092821 [32m200[0m 172.332 ms - 547[0m
+[0mGET /api/festive/active?_=1782885098631 [32m200[0m 91.286 ms - 547[0m
+[0mGET /api/festive/active?_=1782885109083 [32m200[0m 150.872 ms - 547[0m
+[0mGET /api/festive/active?_=1782885130633 [32m200[0m 106.127 ms - 547[0m
+[0mGET /api/festive/active?_=1782885139645 [32m200[0m 205.476 ms - 547[0m
+[0mGET /api/festive/active?_=1782885159900 [32m200[0m 133.445 ms - 547[0m
+[0mGET /api/festive/active?_=1782885169638 [32m200[0m 113.667 ms - 547[0m
+[0mGET /api/festive/active?_=1782885189904 [32m200[0m 126.467 ms - 547[0m
+[0mGET /api/festive/active?_=1782885199080 [32m200[0m 168.300 ms - 547[0m
+[0mGET /api/categories [36m304[0m 155.588 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 233.043 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 61.876 ms - -[0m
+[0mGET /api/admin/orders [32m200[0m 274.870 ms - 25812[0m
+[0mGET /api/admin/products [36m304[0m 278.250 ms - -[0m
+[0mGET /api/categories [36m304[0m 50.305 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 283.974 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 39.852 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 65.600 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 111.027 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 131.472 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 144.597 ms - -[0m
+[0mGET /api/admin/stats [32m200[0m 787.223 ms - 8288[0m
+[0mGET /api/admin/stats [36m304[0m 237.643 ms - -[0m
+[0mGET /api/festive/active?_=1782885220636 [32m200[0m 37.089 ms - 547[0m
+[0mGET /api/festive/active?_=1782885229092 [32m200[0m 76.641 ms - 547[0m
+[0mGET /api/festive/active?_=1782885249900 [32m200[0m 140.084 ms - 547[0m
+[0mGET /api/categories [36m304[0m 129.380 ms - -[0m
+[0mGET /api/categories [36m304[0m 84.781 ms - -[0m
+[0mGET /api/products? [32m200[0m 322.910 ms - 6121[0m
+[0mGET /api/products? [36m304[0m 302.756 ms - -[0m
+[0mGET /api/festive/active?_=1782885259631 [32m200[0m 134.805 ms - 547[0m
+[0mGET /api/categories [36m304[0m 55.820 ms - -[0m
+[0mGET /api/products?category=table-covers [36m304[0m 263.747 ms - -[0m
+[0mGET /api/festive/active?_=1782885279904 [32m200[0m 139.273 ms - 547[0m
+[0mGET /api/festive/active?_=1782885289632 [32m200[0m 59.901 ms - 547[0m
+[0mGET /api/festive/active?_=1782885310628 [32m200[0m 35.394 ms - 547[0m
+[0mGET /api/festive/active?_=1782885338634 [32m200[0m 35.829 ms - 547[0m
+[0mGET /api/festive/active?_=1782885340634 [32m200[0m 33.340 ms - 547[0m
+[0mGET /api/festive/active?_=1782885365980 [32m200[0m 86.225 ms - 547[0m
+[0mGET /api/festive/active?_=1782885379629 [32m200[0m 33.973 ms - 547[0m
+[0mGET /api/festive/active?_=1782885398632 [32m200[0m 118.420 ms - 547[0m
+[0mGET /api/festive/active?_=1782885409630 [32m200[0m 152.776 ms - 547[0m
+[0mGET /api/festive/active?_=1782885439638 [32m200[0m 250.023 ms - 547[0m
+[0mGET /api/festive/active?_=1782885458634 [32m200[0m 123.236 ms - 547[0m
+[0mGET /api/festive/active?_=1782885469628 [32m200[0m 159.227 ms - 547[0m
+[0mGET /api/festive/active?_=1782885518642 [32m200[0m 34.322 ms - 547[0m
+[0mGET /api/festive/active?_=1782885518645 [32m200[0m 42.901 ms - 547[0m
+[0mGET /api/festive/active?_=1782885543773 [32m200[0m 32.496 ms - 547[0m
+[0mGET /api/categories [36m304[0m 99.670 ms - -[0m
+[0mGET /api/categories [36m304[0m 87.395 ms - -[0m
+[0mGET /api/products?limit=8 [36m304[0m 222.438 ms - -[0m
+[0mGET /api/products?limit=8 [36m304[0m 253.527 ms - -[0m
+[0mGET /api/festive/active?_=1782885559078 [32m200[0m 36.935 ms - 547[0m
+[0mGET /api/categories [36m304[0m 107.123 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 181.626 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 55.189 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 214.318 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 232.279 ms - -[0m
+[0mGET /api/categories [36m304[0m 54.791 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 259.274 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 46.325 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 78.651 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 119.664 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 117.605 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 127.375 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 862.544 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 303.201 ms - -[0m
+[0mPATCH /api/admin/festive/toggle/6a43a366af2855f0fd5c9782 [32m200[0m 211.271 ms - 548[0m
+[0mGET /api/categories [36m304[0m 39.422 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 74.113 ms - -[0m
+[0mGET /api/festive/active?_=1782885571073 [32m200[0m 32.511 ms - 4[0m
+[0mGET /api/admin/festive/all [32m200[0m 105.928 ms - 1224[0m
+[0mGET /api/admin/products [36m304[0m 117.651 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 160.526 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 340.340 ms - -[0m
+[0mGET /api/categories [36m304[0m 84.080 ms - -[0m
+[0mGET /api/categories [36m304[0m 126.002 ms - -[0m
+[0mGET /api/products?limit=8 [36m304[0m 288.078 ms - -[0m
+[0mGET /api/products?limit=8 [36m304[0m 299.409 ms - -[0m
+[0mGET /api/festive/active?_=1782885578633 [32m200[0m 34.386 ms - 4[0m
+[0mGET /api/festive/active?_=1782885589079 [32m200[0m 204.499 ms - 4[0m
+[0mGET /api/festive/active?_=1782885619630 [32m200[0m 175.108 ms - 4[0m
+[0mGET /api/festive/active?_=1782885638630 [32m200[0m 43.476 ms - 4[0m
+[0mGET /api/festive/active?_=1782885649629 [32m200[0m 185.583 ms - 4[0m
+[0mGET /api/festive/active?_=1782885679632 [32m200[0m 181.793 ms - 4[0m
+[0mGET /api/festive/active?_=1782885698640 [32m200[0m 35.437 ms - 4[0m
+[0mGET /api/festive/active?_=1782885709640 [32m200[0m 181.522 ms - 4[0m
+[0mGET /api/festive/active?_=1782885758628 [32m200[0m 62.687 ms - 4[0m
+[0mGET /api/festive/active?_=1782885758628 [32m200[0m 69.687 ms - 4[0m
+[0mGET /api/festive/active?_=1782885818637 [32m200[0m 41.425 ms - 4[0m
+[0mGET /api/festive/active?_=1782885818636 [32m200[0m 46.011 ms - 4[0m
+[0mGET /api/festive/active?_=1782885878637 [32m200[0m 60.149 ms - 4[0m
+[0mGET /api/festive/active?_=1782885878639 [32m200[0m 65.402 ms - 4[0m
+[0mGET /api/festive/active?_=1782885938642 [32m200[0m 56.192 ms - 4[0m
+[0mGET /api/festive/active?_=1782885938641 [32m200[0m 64.840 ms - 4[0m
+[0mGET /api/festive/active?_=1782885998640 [32m200[0m 71.424 ms - 4[0m
+[0mGET /api/festive/active?_=1782885998639 [32m200[0m 75.901 ms - 4[0m
+[0mGET /api/festive/active?_=1782886058646 [32m200[0m 77.531 ms - 4[0m
+[0mGET /api/festive/active?_=1782886058642 [32m200[0m 88.154 ms - 4[0m
+[0mGET /api/festive/active?_=1782886118628 [32m200[0m 83.545 ms - 4[0m
+[0mGET /api/festive/active?_=1782886118629 [32m200[0m 110.752 ms - 4[0m
+[0mGET /api/festive/active?_=1782886178647 [32m200[0m 91.276 ms - 4[0m
+[0mGET /api/festive/active?_=1782886178643 [32m200[0m 99.672 ms - 4[0m
+[0mGET /api/festive/active?_=1782886238634 [32m200[0m 95.485 ms - 4[0m
+[0mGET /api/festive/active?_=1782886238633 [32m200[0m 106.224 ms - 4[0m
+[0mGET /api/festive/active?_=1782886262368 [32m200[0m 94.883 ms - 4[0m
+[0mGET /api/categories [36m304[0m 57.111 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 93.158 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 37.310 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 208.867 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 142.312 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 133.613 ms - -[0m
+[0mGET /api/categories [36m304[0m 42.975 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 171.824 ms - -[0m
+[0mGET /api/auth/admin/verify [36m304[0m 36.369 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 73.554 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 158.900 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 172.837 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 172.213 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 163.188 ms - -[0m
+[0mGET /api/festive/active?_=1782886279079 [32m200[0m 191.348 ms - 4[0m
+[0mGET /api/festive/active?_=1782886298641 [32m200[0m 102.538 ms - 4[0m
+[0mGET /api/festive/active?_=1782886309081 [32m200[0m 203.088 ms - 4[0m
+[0mGET /api/festive/active?_=1782886339632 [32m200[0m 76.282 ms - 4[0m
+[0mGET /api/festive/active?_=1782886358627 [32m200[0m 46.147 ms - 4[0m
+[0mGET /api/festive/active?_=1782886369629 [32m200[0m 92.540 ms - 4[0m
+[0mGET /api/festive/active?_=1782886418641 [32m200[0m 53.476 ms - 4[0m
+[0mGET /api/festive/active?_=1782886418646 [32m200[0m 48.585 ms - 4[0m
+[0mGET /api/festive/active?_=1782886429634 [32m200[0m 172.536 ms - 4[0m
+[0mGET /api/festive/active?_=1782886459638 [32m200[0m 175.083 ms - 4[0m
+[0mGET /api/festive/active?_=1782886478637 [32m200[0m 36.310 ms - 4[0m
+[0mGET /api/festive/active?_=1782886489636 [32m200[0m 69.578 ms - 4[0m
+[0mGET /api/festive/active?_=1782886538632 [32m200[0m 42.224 ms - 4[0m
+[0mGET /api/festive/active?_=1782886538631 [32m200[0m 49.923 ms - 4[0m
+[0mGET /api/festive/active?_=1782886598632 [32m200[0m 125.475 ms - 4[0m
+[0mGET /api/festive/active?_=1782886598632 [32m200[0m 145.174 ms - 4[0m
+[0mGET /api/festive/active?_=1782886658644 [32m200[0m 35.862 ms - 4[0m
+[0mGET /api/festive/active?_=1782886658642 [32m200[0m 44.841 ms - 4[0m
+[0mGET /api/festive/active?_=1782886703422 [32m200[0m 166.629 ms - 4[0m
+[0mGET /api/festive/active?_=1782886718640 [32m200[0m 61.320 ms - 4[0m
+[0mGET /api/festive/active?_=1782886729634 [32m200[0m 109.206 ms - 4[0m
+[0mGET /api/festive/active?_=1782886759631 [32m200[0m 114.531 ms - 4[0m
+[0mGET /api/festive/active?_=1782886778640 [32m200[0m 158.802 ms - 4[0m
+[0mGET /api/festive/active?_=1782886838627 [32m200[0m 97.666 ms - 4[0m
+[0mGET /api/festive/active?_=1782886838628 [32m200[0m 102.625 ms - 4[0m
+[0mGET /api/festive/active?_=1782886898638 [32m200[0m 27.944 ms - 4[0m
+[0mGET /api/festive/active?_=1782886898638 [32m200[0m 31.988 ms - 4[0m
+[0mGET /api/festive/active?_=1782886958640 [32m200[0m 32.347 ms - 4[0m
+[0mGET /api/festive/active?_=1782886958640 [32m200[0m 33.478 ms - 4[0m
+[0mGET /api/festive/active?_=1782887018642 [32m200[0m 31.144 ms - 4[0m
+[0mGET /api/festive/active?_=1782887018642 [32m200[0m 34.890 ms - 4[0m
+[0mGET /api/festive/active?_=1782887078636 [32m200[0m 32.505 ms - 4[0m
+[0mGET /api/festive/active?_=1782887078635 [32m200[0m 31.771 ms - 4[0m
+[0mGET /api/festive/active?_=1782887138667 [32m200[0m 72.593 ms - 4[0m
+[0mGET /api/festive/active?_=1782887138663 [32m200[0m 45.594 ms - 4[0m
+[0mGET /api/festive/active?_=1782887198640 [32m200[0m 37.215 ms - 4[0m
+[0mGET /api/festive/active?_=1782887198640 [32m200[0m 41.564 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782887258644 [32m200[0m 48.242 ms - 4[0m
+[0mGET /api/festive/active?_=1782887258642 [32m200[0m 39.086 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/admin/users [36m304[0m 95.930 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 174.712 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 181.466 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 190.349 ms - -[0m
+[0mGET /api/categories [36m304[0m 255.305 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 338.172 ms - -[0m
+[0mGET /api/categories [36m304[0m 47.115 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 68.105 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 129.705 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 164.815 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 179.015 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 320.722 ms - -[0m
+[0mGET /api/festive/active?_=1782887318642 [32m200[0m 35.535 ms - 4[0m
+[0mGET /api/festive/active?_=1782887318644 [32m200[0m 34.589 ms - 4[0m
+[0mGET /api/festive/active?_=1782887378637 [32m200[0m 32.548 ms - 4[0m
+[0mGET /api/festive/active?_=1782887378637 [32m200[0m 31.713 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/admin/reviews [32m200[0m 75.525 ms - 2[0m
+[0mGET /api/admin/reviews [36m304[0m 68.204 ms - -[0m
+[0mGET /api/admin/reviews?status=pending [32m200[0m 65.382 ms - 2[0m
+[0mGET /api/admin/reviews?status=approved [32m200[0m 61.177 ms - 2[0m
+[0mGET /api/admin/reviews?status=rejected [32m200[0m 61.476 ms - 2[0m
+[0mGET /api/festive/active?_=1782887389076 [32m200[0m 30.959 ms - 4[0m
+[0mGET /api/admin/reviews [36m304[0m 65.189 ms - -[0m
+[0mGET /api/products/festive-gold-runner [36m304[0m 84.905 ms - -[0m
+[0mGET /api/products/festive-gold-runner [36m304[0m 64.203 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [32m200[0m 62.018 ms - 43[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf3 [32m200[0m 97.450 ms - 82[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [36m304[0m 61.416 ms - -[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf3 [36m304[0m 88.595 ms - -[0m
+[0mGET /api/festive/active?_=1782887409903 [32m200[0m 50.651 ms - 4[0m
+[0mGET /api/festive/active?_=1782887419639 [32m200[0m 42.437 ms - 4[0m
+[0mGET /api/products/ivory-garden-jacquard-table-cover [32m200[0m 65.531 ms - 1188[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdea [32m200[0m 63.030 ms - 44[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdea [32m200[0m 96.431 ms - 82[0m
+[0mGET /api/products/festive-gold-runner [36m304[0m 60.387 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [36m304[0m 56.135 ms - -[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf3 [36m304[0m 95.412 ms - -[0m
+[0mGET /api/festive/active?_=1782887439908 [32m200[0m 38.544 ms - 4[0m
+[0mGET /api/festive/active?_=1782887449236 [32m200[0m 32.750 ms - 4[0m
+[0mGET /api/users/addresses [36m304[0m 69.351 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 123.063 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 58.621 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 73.457 ms - -[0m
+[0mGET /api/products/artisan-linen-apron [36m304[0m 64.544 ms - -[0m
+[0mGET /api/products/artisan-linen-apron [36m304[0m 67.383 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf0 [32m200[0m 65.444 ms - 44[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf0 [32m200[0m 92.669 ms - 82[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf0 [36m304[0m 58.303 ms - -[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf0 [36m304[0m 91.183 ms - -[0m
+[0mGET /api/festive/active?_=1782887469907 [32m200[0m 48.873 ms - 4[0m
+[0mGET /api/festive/active?_=1782887479636 [32m200[0m 34.268 ms - 4[0m
+[0mGET /api/festive/active?_=1782887500633 [32m200[0m 28.901 ms - 4[0m
+[0mGET /api/categories [36m304[0m 37.871 ms - -[0m
+[0mGET /api/festive/active?_=1782887504377 [32m200[0m 34.952 ms - 4[0m
+[0mGET /api/festive/active?_=1782887504379 [32m200[0m 34.452 ms - 4[0m
+[0mGET /api/categories [36m304[0m 35.116 ms - -[0m
+[0mGET /api/products?limit=8 [32m200[0m 123.006 ms - 6121[0m
+[0mGET /api/products?limit=8 [36m304[0m 116.500 ms - -[0m
+[0mGET /api/festive/active?_=1782887509632 [32m200[0m 30.754 ms - 4[0m
+[0mGET /api/categories [36m304[0m 28.278 ms - -[0m
+[0mGET /api/categories [36m304[0m 31.292 ms - -[0m
+[0mGET /api/products?category=table-covers [36m304[0m 121.173 ms - -[0m
+[0mGET /api/products?category=table-covers [36m304[0m 126.790 ms - -[0m
+[0mGET /api/products/festive-gold-runner [32m200[0m 60.578 ms - 867[0m
+[0mGET /api/products/festive-gold-runner [36m304[0m 60.831 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [32m200[0m 65.840 ms - 43[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [36m304[0m 62.037 ms - -[0m
+[0mGET /api/festive/active?_=1782887529902 [32m200[0m 32.094 ms - 4[0m
+[0mGET /api/festive/active?_=1782887534635 [32m200[0m 31.967 ms - 4[0m
+[0mGET /api/festive/active?_=1782887558632 [32m200[0m 33.973 ms - 4[0m
+[0mGET /api/festive/active?_=1782887560635 [32m200[0m 31.576 ms - 4[0m
+[0mGET /api/festive/active?_=1782887564640 [32m200[0m 29.170 ms - 4[0m
+[0mGET /api/festive/active?_=1782887569632 [32m200[0m 29.514 ms - 4[0m
+[0mGET /api/festive/active?_=1782887590639 [32m200[0m 31.321 ms - 4[0m
+[0mGET /api/festive/active?_=1782887594641 [32m200[0m 33.337 ms - 4[0m
+[0mGET /api/festive/active?_=1782887599642 [32m200[0m 32.643 ms - 4[0m
+[0mGET /api/festive/active?_=1782887624629 [32m200[0m 28.725 ms - 4[0m
+[0mGET /api/festive/active?_=1782887654384 [32m200[0m 32.204 ms - 4[0m
+[0mGET /api/festive/active?_=1782887676635 [32m200[0m 31.883 ms - 4[0m
+[0mGET /api/festive/active?_=1782887678639 [32m200[0m 30.974 ms - 4[0m
+[0mGET /api/festive/active?_=1782887684635 [32m200[0m 31.630 ms - 4[0m
+[0mGET /api/festive/active?_=1782887714627 [32m200[0m 787.394 ms - 4[0m
+[0mGET /api/festive/active?_=1782887737640 [32m200[0m 29.835 ms - 4[0m
+[0mGET /api/festive/active?_=1782887738639 [32m200[0m 28.780 ms - 4[0m
+[0mGET /api/festive/active?_=1782887774679 [32m200[0m 37.536 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782887798634 [32m200[0m 48.397 ms - 4[0m
+[0mGET /api/festive/active?_=1782887798636 [32m200[0m 38.298 ms - 4[0m
+[0mGET /api/festive/active?_=1782887804628 [32m200[0m 30.498 ms - 4[0m
+[0mGET /api/products/festive-gold-runner [36m304[0m 78.118 ms - -[0m
+[0mGET /api/products/artisan-linen-apron [36m304[0m 68.558 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [36m304[0m 72.837 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf0 [36m304[0m 74.501 ms - -[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf0 [36m304[0m 134.356 ms - -[0m
+[0mGET /api/festive/active?_=1782887834630 [32m200[0m 33.833 ms - 4[0m
+[0mGET /api/festive/active?_=1782887858643 [32m200[0m 30.942 ms - 4[0m
+[0mGET /api/festive/active?_=1782887858641 [32m200[0m 35.950 ms - 4[0m
+[0mGET /api/festive/active?_=1782887918640 [32m200[0m 37.859 ms - 4[0m
+[0mGET /api/festive/active?_=1782887918643 [32m200[0m 32.702 ms - 4[0m
+[0mGET /api/festive/active?_=1782887918642 [32m200[0m 31.082 ms - 4[0m
+[0mGET /api/festive/active?_=1782887924380 [32m200[0m 39.880 ms - 4[0m
+[0mGET /api/festive/active?_=1782887927429 [32m200[0m 55.131 ms - 4[0m
+[0mGET /api/festive/active?_=1782887927431 [32m200[0m 55.739 ms - 4[0m
+[0mGET /api/products/festive-gold-runner [36m304[0m 130.989 ms - -[0m
+[0mGET /api/products/festive-gold-runner [36m304[0m 75.299 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [36m304[0m 88.218 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf3 [36m304[0m 65.880 ms - -[0m
+[0mGET /api/festive/active?_=1782887938405 [32m200[0m 49.378 ms - 4[0m
+[0mGET /api/festive/active?_=1782887938404 [32m200[0m 56.251 ms - 4[0m
+[0mGET /api/products/artisan-linen-apron [36m304[0m 104.828 ms - -[0m
+[0mGET /api/products/artisan-linen-apron [36m304[0m 78.746 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf0 [36m304[0m 83.798 ms - -[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf0 [36m304[0m 156.940 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf0 [36m304[0m 74.042 ms - -[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf0 [36m304[0m 103.678 ms - -[0m
+[0mGET /api/festive/active?_=1782887957631 [32m200[0m 29.730 ms - 4[0m
+[0mGET /api/festive/active?_=1782887968632 [32m200[0m 34.188 ms - 4[0m
+[0mGET /api/festive/active?_=1782887978631 [32m200[0m 29.704 ms - 4[0m
+[0mGET /api/festive/active?_=1782887987633 [32m200[0m 32.971 ms - 4[0m
+[0mGET /api/festive/active?_=1782887998628 [32m200[0m 32.470 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782888017629 [32m200[0m 42.088 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[0mGET /api/festive/active?_=1782888027885 [32m200[0m 37.775 ms - 4[0m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782888028628 [32m200[0m 379.925 ms - 4[0m
+[0mGET /api/admin/reviews?status=pending [36m304[0m 75.632 ms - -[0m
+[0mGET /api/admin/reviews [36m304[0m 58.821 ms - -[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782888047632 [32m200[0m 203.950 ms - 4[0m
+[0mGET /api/festive/active?_=1782888049088 [32m200[0m 32.227 ms - 4[0m
+[0mGET /api/festive/active?_=1782888058629 [32m200[0m 34.862 ms - 4[0m
+[0mGET /api/festive/active?_=1782888077633 [32m200[0m 37.050 ms - 4[0m
+[0mGET /api/festive/active?_=1782888079641 [32m200[0m 31.983 ms - 4[0m
+[0mPOST /api/products/artisan-linen-apron/like [32m200[0m 144.640 ms - 29[0m
+[0mGET /api/categories [36m304[0m 44.278 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 91.669 ms - -[0m
+[0mGET /api/admin/products [32m200[0m 115.574 ms - 6105[0m
+[0mGET /api/admin/festive/all [36m304[0m 135.800 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 161.543 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 288.161 ms - -[0m
+[0mGET /api/festive/active?_=1782888088412 [32m200[0m 43.396 ms - 4[0m
+[0mGET /api/categories [36m304[0m 32.106 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 94.313 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 127.140 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 136.239 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 163.603 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 299.737 ms - -[0m
+[0mGET /api/categories [36m304[0m 36.178 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 61.524 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 100.532 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 101.286 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 131.656 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 306.748 ms - -[0m
+[0mGET /api/festive/active?_=1782888107637 [32m200[0m 42.483 ms - 4[0m
+[0mGET /api/festive/active?_=1782888109638 [32m200[0m 33.507 ms - 4[0m
+[0mGET /api/festive/active?_=1782888118642 [32m200[0m 32.112 ms - 4[0m
+[0mGET /api/categories [36m304[0m 46.842 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 75.761 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 110.044 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 105.674 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 110.683 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 135.767 ms - -[0m
+[0mGET /api/categories [36m304[0m 42.378 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 67.429 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 112.736 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 129.488 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 141.531 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 177.784 ms - -[0m
+[0mGET /api/festive/active?_=1782888139090 [32m200[0m 33.694 ms - 4[0m
+[0mGET /api/festive/active?_=1782888148633 [32m200[0m 33.723 ms - 4[0m
+[0mGET /api/festive/active?_=1782888158633 [32m200[0m 35.156 ms - 4[0m
+[0mGET /api/festive/active?_=1782888169087 [32m200[0m 30.817 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782888199634 [32m200[0m 54.513 ms - 4[0m
+[0mGET /api/festive/active?_=1782888218631 [32m200[0m 35.240 ms - 4[0m
+[0mGET /api/festive/active?_=1782888218631 [32m200[0m 40.665 ms - 4[0m
+[0mGET /api/festive/active?_=1782888229634 [32m200[0m 56.731 ms - 4[0m
+[0mGET /api/festive/active?_=1782888278639 [32m200[0m 31.200 ms - 4[0m
+[0mGET /api/festive/active?_=1782888278639 [32m200[0m 33.465 ms - 4[0m
+[0mGET /api/festive/active?_=1782888278639 [32m200[0m 34.092 ms - 4[0m
+[0mGET /api/festive/active?_=1782888338631 [32m200[0m 37.992 ms - 4[0m
+[0mGET /api/festive/active?_=1782888338630 [32m200[0m 38.362 ms - 4[0m
+[0mGET /api/festive/active?_=1782888338632 [32m200[0m 38.896 ms - 4[0m
+[0mGET /api/festive/active?_=1782888398631 [32m200[0m 46.786 ms - 4[0m
+[0mGET /api/festive/active?_=1782888398631 [32m200[0m 45.706 ms - 4[0m
+[0mGET /api/festive/active?_=1782888398631 [32m200[0m 40.420 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: NO - undefined
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/categories [32m200[0m 41.739 ms - 1594[0m
+[0mGET /api/admin/users [36m304[0m 102.034 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 112.465 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 136.989 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 198.128 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 331.392 ms - -[0m
+[0mGET /api/categories [36m304[0m 33.305 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 74.482 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 108.050 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 117.416 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 151.930 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 264.791 ms - -[0m
+[0mGET /api/festive/active?_=1782888458634 [32m200[0m 38.434 ms - 4[0m
+[0mGET /api/festive/active?_=1782888458634 [32m200[0m 36.380 ms - 4[0m
+[0mGET /api/festive/active?_=1782888458635 [32m200[0m 40.337 ms - 4[0m
+[0mGET /api/categories [36m304[0m 42.334 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 78.283 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 104.845 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 125.189 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 168.248 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 330.733 ms - -[0m
+[0mGET /api/categories [36m304[0m 35.348 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 72.951 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 105.281 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 111.590 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 115.614 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 140.836 ms - -[0m
+[0mGET /api/festive/active?_=1782888482073 [32m200[0m 37.603 ms - 4[0m
+[0mGET /api/categories [36m304[0m 34.560 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 70.567 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 103.005 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 110.332 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 126.856 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 171.984 ms - -[0m
+[calculatePrices] Input items: [
+  {
+    product: '6a420ae3dba8aa50d77ebdf0',
+    name: 'Artisan Linen Apron',
+    quantity: 2,
+    image: 'https://res.cloudinary.com/djligggal/image/upload/v1782655012/golden-horn-bridge-dOQeGVGNmpk-unsplash_qpgwe1.jpg',
+    price: 999,
+    color: 'Natural',
+    size: 'Free Size',
+    fabric: 'Washed linen cotton'
+  }
+]
+[calculatePrices] Product IDs: [ '6a420ae3dba8aa50d77ebdf0' ]
+[calculatePrices] Found products: [
+  {
+    _id: new ObjectId('6a420ae3dba8aa50d77ebdf0'),
+    name: 'Artisan Linen Apron',
+    price: 1299,
+    discountPrice: 999
+  }
+]
+[calculatePrices] Item: 6a420ae3dba8aa50d77ebdf0 -> Product: Artisan Linen Apron Price: 999
+[0mPOST /api/orders [32m201[0m 126.735 ms - 871[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 81.751 ms - 265[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 87.611 ms - 265[0m
+[0mGET /api/categories [36m304[0m 34.839 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 83.761 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 129.215 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 127.397 ms - -[0m
+[0mGET /api/admin/stats [32m200[0m 137.107 ms - 8289[0m
+[0mGET /api/admin/orders [32m200[0m 164.486 ms - 26753[0m
+[0mGET /api/festive/active?_=1782888508445 [32m200[0m 32.675 ms - 4[0m
+[0mGET /api/festive/active?_=1782888518640 [32m200[0m 33.970 ms - 4[0m
+[0mGET /api/festive/active?_=1782888518640 [32m200[0m 33.824 ms - 4[0m
+[0mGET /api/categories [36m304[0m 36.225 ms - -[0m
+[0mGET /api/admin/users [36m304[0m 57.254 ms - -[0m
+[0mGET /api/admin/products [36m304[0m 107.140 ms - -[0m
+[0mGET /api/admin/stats [36m304[0m 114.837 ms - -[0m
+[0mGET /api/admin/festive/all [36m304[0m 118.069 ms - -[0m
+[0mGET /api/admin/orders [36m304[0m 150.709 ms - -[0m
+[0mGET /api/festive/active?_=1782888538640 [32m200[0m 32.770 ms - 4[0m
+[0mGET /api/festive/active?_=1782888568335 [32m200[0m 33.154 ms - 4[0m
+[0mGET /api/festive/active?_=1782888568628 [32m200[0m 30.233 ms - 4[0m
+[0mGET /api/festive/active?_=1782888578633 [32m200[0m 33.881 ms - 4[0m
+[0mGET /api/festive/active?_=1782888589082 [32m200[0m 33.516 ms - 4[0m
+[0mPOST /api/categories [32m201[0m 89.216 ms - 204[0m
+[0mGET /api/festive/active?_=1782888598634 [32m200[0m 31.837 ms - 4[0m
+[0mDELETE /api/categories/6a44b8904529d6025dd376aa [32m200[0m 105.078 ms - 30[0m
+[0mGET /api/admin/returns? [32m200[0m 74.293 ms - 2[0m
+[0mGET /api/admin/returns? [36m304[0m 65.985 ms - -[0m
+[0mGET /api/admin/returns?status=Requested [32m200[0m 64.111 ms - 2[0m
+[0mGET /api/festive/active?_=1782888619078 [32m200[0m 38.931 ms - 4[0m
+[0mGET /api/admin/returns? [36m304[0m 66.583 ms - -[0m
+[0mGET /api/festive/active?_=1782888632674 [32m200[0m 35.602 ms - 4[0m
+[0mGET /api/festive/active?_=1782888638630 [32m200[0m 38.723 ms - 4[0m
+[0mGET /api/users/addresses [36m304[0m 67.611 ms - -[0m
+[0mGET /api/orders/my [32m200[0m 111.091 ms - 23589[0m
+[0mGET /api/users/addresses [36m304[0m 87.805 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 96.987 ms - -[0m
+[0mGET /api/products/chefs-gift-apron-and-mitt-set [32m200[0m 75.048 ms - 884[0m
+[0mGET /api/products/chefs-gift-apron-and-mitt-set [36m304[0m 70.130 ms - -[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf7 [32m200[0m 90.770 ms - 44[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf7 [32m200[0m 118.388 ms - 82[0m
+[0mGET /api/reviews/product/6a420ae3dba8aa50d77ebdf7 [36m304[0m 70.879 ms - -[0m
+[0mGET /api/reviews/check-purchase/6a420ae3dba8aa50d77ebdf7 [36m304[0m 118.385 ms - -[0m
+[0mGET /api/festive/active?_=1782888649631 [32m200[0m 33.002 ms - 4[0m
+[0mGET /api/festive/active?_=1782888658407 [32m200[0m 32.004 ms - 4[0m
+[calculatePrices] Input items: [
+  {
+    product: '6a420ae3dba8aa50d77ebdf7',
+    name: "Chef's Gift Apron and Mitt Set",
+    quantity: 1,
+    image: 'https://res.cloudinary.com/djligggal/image/upload/v1782655432/olga-ferina-7h59Wrc4qsA-unsplash_xc2ai0.jpg',
+    price: 1499,
+    color: 'Rust',
+    size: 'Free Size',
+    fabric: 'Canvas cotton'
+  }
+]
+[calculatePrices] Product IDs: [ '6a420ae3dba8aa50d77ebdf7' ]
+[calculatePrices] Found products: [
+  {
+    _id: new ObjectId('6a420ae3dba8aa50d77ebdf7'),
+    name: "Chef's Gift Apron and Mitt Set",
+    price: 1899,
+    discountPrice: 1499
+  }
+]
+[calculatePrices] Item: 6a420ae3dba8aa50d77ebdf7 -> Product: Chef's Gift Apron and Mitt Set Price: 1499
+[0mPOST /api/orders [32m201[0m 111.497 ms - 869[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 61.591 ms - 265[0m
+[0mPOST /api/payments/create-payment-intent [31m500[0m 68.713 ms - 265[0m
+[0mGET /api/festive/active?_=1782888679630 [32m200[0m 31.762 ms - 4[0m
+[0mGET /api/festive/active?_=1782888688640 [32m200[0m 32.498 ms - 4[0m
+[0mGET /api/festive/active?_=1782888698632 [32m200[0m 33.595 ms - 4[0m
+[0mGET /api/festive/active?_=1782888718631 [32m200[0m 31.391 ms - 4[0m
+[0mGET /api/festive/active?_=1782888748631 [32m200[0m 31.898 ms - 4[0m
+[0mGET /api/festive/active?_=1782888755640 [32m200[0m 31.542 ms - 4[0m
+[0mGET /api/festive/active?_=1782888758640 [32m200[0m 31.809 ms - 4[0m
+[0mGET /api/festive/active?_=1782888769087 [32m200[0m 34.937 ms - 4[0m
+[0mGET /api/admin/reviews [36m304[0m 65.547 ms - -[0m
+[0mGET /api/admin/reviews [36m304[0m 66.442 ms - -[0m
+[0mGET /api/admin/returns? [36m304[0m 65.542 ms - -[0m
+[0mGET /api/admin/returns? [36m304[0m 62.708 ms - -[0m
+[0mGET /api/admin/reviews [36m304[0m 66.491 ms - -[0m
+[0mGET /api/admin/reviews [36m304[0m 62.589 ms - -[0m
+[0mGET /api/festive/active?_=1782888784381 [32m200[0m 33.835 ms - 4[0m
+[0mGET /api/users/addresses [36m304[0m 62.400 ms - -[0m
+[0mGET /api/orders/my [32m200[0m 106.975 ms - 24459[0m
+[0mGET /api/users/addresses [36m304[0m 70.534 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 72.209 ms - -[0m
+[0mGET /api/returns/my [32m200[0m 69.620 ms - 2[0m
+[0mGET /api/returns/eligible [32m200[0m 68.703 ms - 2[0m
+[0mGET /api/returns/my [36m304[0m 63.372 ms - -[0m
+[0mGET /api/returns/eligible [36m304[0m 62.652 ms - -[0m
+[0mGET /api/returns/eligible [36m304[0m 65.081 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 66.290 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 112.454 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 62.672 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 74.535 ms - -[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782888799638 [32m200[0m 388.559 ms - 4[0m
+[0mGET /api/returns/my [36m304[0m 82.350 ms - -[0m
+[0mGET /api/returns/eligible [36m304[0m 77.718 ms - -[0m
+[0mGET /api/returns/eligible [36m304[0m 73.204 ms - -[0m
+[0mGET /api/returns/my [36m304[0m 75.971 ms - -[0m
+[0mGET /api/festive/active?_=1782888808413 [32m200[0m 28.945 ms - 4[0m
+[0mGET /api/users/addresses [36m304[0m 60.653 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 117.106 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 61.402 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 69.672 ms - -[0m
+[0mGET /api/festive/active?_=1782888818638 [32m200[0m 30.331 ms - 4[0m
+[0mGET /api/festive/active?_=1782888829634 [32m200[0m 33.043 ms - 4[0m
+[0mGET /api/festive/active?_=1782888838641 [32m200[0m 30.403 ms - 4[0m
+[0mGET /api/festive/active?_=1782888868631 [32m200[0m 32.140 ms - 4[0m
+[0mGET /api/festive/active?_=1782888878638 [32m200[0m 28.476 ms - 4[0m
+[0mGET /api/festive/active?_=1782888878638 [32m200[0m 31.638 ms - 4[0m
+[0mGET /api/festive/active?_=1782888887634 [32m200[0m 29.990 ms - 4[0m
+[0mGET /api/festive/active?_=1782888889634 [32m200[0m 28.628 ms - 4[0m
+[0mGET /api/festive/active?_=1782888898635 [32m200[0m 28.562 ms - 4[0m
+[0mGET /api/festive/active?_=1782888917630 [32m200[0m 27.621 ms - 4[0m
+[0mGET /api/festive/active?_=1782888919634 [32m200[0m 29.349 ms - 4[0m
+[0mGET /api/festive/active?_=1782888928641 [32m200[0m 28.431 ms - 4[0m
+[0mGET /api/festive/active?_=1782888958640 [32m200[0m 34.373 ms - 4[0m
+[0mGET /api/festive/active?_=1782888988638 [32m200[0m 28.258 ms - 4[0m
+[0mGET /api/festive/active?_=1782888990913 [32m200[0m 29.200 ms - 4[0m
+[0mGET /api/festive/active?_=1782888990914 [32m200[0m 29.701 ms - 4[0m
+[0mGET /api/users/addresses [36m304[0m 59.567 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 101.692 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 66.208 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 80.628 ms - -[0m
+[0mGET /api/festive/active?_=1782888998627 [32m200[0m 27.389 ms - 4[0m
+[0mGET /api/festive/active?_=1782888998641 [32m200[0m 30.414 ms - 4[0m
+[0mGET /api/users/addresses [36m304[0m 59.112 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 96.407 ms - -[0m
+[0mGET /api/users/addresses [36m304[0m 67.000 ms - -[0m
+[0mGET /api/orders/my [36m304[0m 80.793 ms - -[0m
+[calculatePrices] Input items: [
+  {
+    product: '6a420ae3dba8aa50d77ebdf7',
+    name: "Chef's Gift Apron and Mitt Set",
+    quantity: 1,
+    image: 'https://res.cloudinary.com/djligggal/image/upload/v1782655432/olga-ferina-7h59Wrc4qsA-unsplash_xc2ai0.jpg',
+    price: 1499,
+    color: 'Rust',
+    size: 'Free Size',
+    fabric: 'Canvas cotton'
+  }
+]
+[calculatePrices] Product IDs: [ '6a420ae3dba8aa50d77ebdf7' ]
+[calculatePrices] Found products: [
+  {
+    _id: new ObjectId('6a420ae3dba8aa50d77ebdf7'),
+    name: "Chef's Gift Apron and Mitt Set",
+    price: 1899,
+    discountPrice: 1499
+  }
+]
+[calculatePrices] Item: 6a420ae3dba8aa50d77ebdf7 -> Product: Chef's Gift Apron and Mitt Set Price: 1499
+[0mPOST /api/orders [32m201[0m 126.356 ms - 869[0m
+[0mPOST /api/payments/create-payment-intent [32m200[0m 791.868 ms - 79[0m
+[0mPOST /api/payments/create-payment-intent [32m200[0m 792.042 ms - 79[0m
+[0mGET /api/festive/active?_=1782889020921 [32m200[0m 28.291 ms - 4[0m
+[0mGET /api/festive/active?_=1782889051639 [32m200[0m 29.350 ms - 4[0m
+[0mGET /api/festive/active?_=1782889058630 [32m200[0m 31.892 ms - 4[0m
+[0mGET /api/festive/active?_=1782889058630 [32m200[0m 30.917 ms - 4[0m
+[0mGET /api/festive/active?_=1782889081638 [32m200[0m 28.299 ms - 4[0m
+[0mGET /api/festive/active?_=1782889111634 [32m200[0m 30.062 ms - 4[0m
+[0mGET /api/festive/active?_=1782889118641 [32m200[0m 29.379 ms - 4[0m
+[0mGET /api/festive/active?_=1782889118642 [32m200[0m 31.661 ms - 4[0m
+[0mGET /api/festive/active?_=1782889141636 [32m200[0m 30.816 ms - 4[0m
+[0mGET /api/festive/active?_=1782889171635 [32m200[0m 29.609 ms - 4[0m
+[0mGET /api/festive/active?_=1782889178641 [32m200[0m 29.924 ms - 4[0m
+[0mGET /api/festive/active?_=1782889178642 [32m200[0m 29.511 ms - 4[0m
+[0mGET /api/festive/active?_=1782889238638 [32m200[0m 33.505 ms - 4[0m
+[0mGET /api/festive/active?_=1782889238638 [32m200[0m 33.313 ms - 4[0m
+[0mGET /api/festive/active?_=1782889238639 [32m200[0m 32.429 ms - 4[0m
+[0mGET /api/festive/active?_=1782889298630 [32m200[0m 30.238 ms - 4[0m
+[0mGET /api/festive/active?_=1782889298630 [32m200[0m 34.095 ms - 4[0m
+[0mGET /api/festive/active?_=1782889298630 [32m200[0m 28.770 ms - 4[0m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+API running on port 5000
+MongoDB connected: ac-u043q3e-shard-00-00.fiiudza.mongodb.net
+[0mGET /api/festive/active?_=1782891398641 [32m200[0m 274.011 ms - 4[0m
+[0mGET /api/festive/active?_=1782891398641 [32m200[0m 287.903 ms - 4[0m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+Stripe key loaded: YES (starts with sk_test_51Tn)
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
