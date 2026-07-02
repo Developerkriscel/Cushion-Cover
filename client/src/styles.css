@@ -1304,6 +1304,35 @@ textarea {
   outline: none;
 }
 
+.password-input-wrapper {
+  position: relative;
+}
+
+.auth-panel .password-input-wrapper > input {
+  padding-right: 36px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #8b4513;
+  opacity: 0.5;
+  transition: opacity 180ms ease;
+  line-height: 1;
+}
+
+.password-toggle:hover {
+  opacity: 1;
+}
+
 .auth-submit {
   margin-top: 10px;
   border-radius: 12px;

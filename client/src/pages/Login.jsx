@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { login, register } from "../features/authSlice.js";
 import { addToCart } from "../features/cartSlice.js";
 import ErrorMessage from "../components/ErrorMessage.jsx";
+import PasswordInput from "../components/PasswordInput.jsx";
 import api from "../services/api.js";
 import { clearPendingAction } from "../utils/pendingAction.js";
 
@@ -106,7 +107,7 @@ export default function Login() {
                 </>
               )}
               <input type="email" placeholder="Email" value={form.email} onChange={(event) => update("email", event.target.value)} required />
-              <input type="password" placeholder="Password" value={form.password} onChange={(event) => update("password", event.target.value)} required />
+              <PasswordInput placeholder="Password" value={form.password} onChange={(event) => update("password", event.target.value)} required />
               <button className="button primary full auth-submit" disabled={loading}>
                 {loading ? "Please Wait..." : mode === "login" ? "Login" : "Register"}
               </button>

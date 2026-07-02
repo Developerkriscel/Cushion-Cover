@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../features/authSlice.js";
 import ErrorMessage from "../components/ErrorMessage.jsx";
+import PasswordInput from "../components/PasswordInput.jsx";
 
 export default function AdminLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -65,7 +66,7 @@ export default function AdminLogin() {
             <ErrorMessage message={error} />
             <form onSubmit={submit}>
               <input type="email" placeholder="Email" value={form.email} onChange={(event) => update("email", event.target.value)} required />
-              <input type="password" placeholder="Password" value={form.password} onChange={(event) => update("password", event.target.value)} required />
+              <PasswordInput placeholder="Password" value={form.password} onChange={(event) => update("password", event.target.value)} required />
               <button className="button primary full auth-submit" disabled={loading}>
                 {loading ? "Signing In..." : "Sign In"}
               </button>
