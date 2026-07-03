@@ -23,18 +23,19 @@ const COLLAGE_IMAGES = [
 ];
 
 function PageHeroCollage() {
+  const delays = [0.3, 0.4, 0.5];
   return (
-    <div className="page-hero-collage" aria-hidden="true">
+    <div className="page-hero-collage shop-hero-collage" aria-hidden="true">
       <div className="collage-row">
-        <div className="collage-box collage-square-1">
-          <img className="collage-img" src={COLLAGE_IMAGES[0].src} alt={COLLAGE_IMAGES[0].alt} />
-        </div>
-        <div className="collage-box collage-rectangle">
-          <img className="collage-img" src={COLLAGE_IMAGES[1].src} alt={COLLAGE_IMAGES[1].alt} />
-        </div>
-        <div className="collage-box collage-square-2">
-          <img className="collage-img" src={COLLAGE_IMAGES[2].src} alt={COLLAGE_IMAGES[2].alt} />
-        </div>
+        {COLLAGE_IMAGES.map((img, i) => (
+          <div
+            key={img.src}
+            className={`collage-box ${i === 0 ? "collage-square-1" : i === 1 ? "collage-rectangle" : "collage-square-2"}`}
+            style={{ animationDelay: `${delays[i]}s` }}
+          >
+            <img className="collage-img" src={img.src} alt={img.alt} />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -45,7 +46,7 @@ export default function Products() {
   const [filters, setFilters] = useState(Object.fromEntries(params.entries()));
   const [products, setProducts] = useState(fallbackProducts);
   const [categories, setCategories] = useState(fallbackCategories);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const queryString = useMemo(() => new URLSearchParams(filters).toString(), [filters]);
 
@@ -85,14 +86,16 @@ export default function Products() {
       <section className="page-hero compact-hero">
         <div className="container page-hero-content">
           <div className="page-hero-text">
-            <span className="eyebrow">Shop Collection</span>
-            <h1>Premium Fabric Decor for Every Room</h1>
+            <span className="eyebrow shop-hero-line" style={{ animationDelay: "0s" }}>Shop Collection</span>
+            <h1 className="shop-hero-line" style={{ animationDelay: "0.15s" }}>Premium Fabric Decor for Every Room</h1>
           </div>
-          <PageHeroCollage products={products} />
+          <PageHeroCollage />
         </div>
       </section>
       <section className="container listing-layout">
-        <FilterSidebar filters={filters} setFilters={updateFilters} categories={categories} />
+        <div className="shop-filter-sidebar" style={{ animationDelay: "0.3s" }}>
+          <FilterSidebar filters={filters} setFilters={updateFilters} categories={categories} />
+        </div>
         <div className="listing-main">
           <div className="listing-toolbar">
             <select value={filters.sort || "newest"} onChange={(event) => updateFilters((current) => ({ ...current, sort: event.target.value }))}>
