@@ -6,6 +6,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { logout } from "../features/authSlice.js";
 import TopBanner from "./TopBanner.jsx";
 
+const CATEGORIES = [
+  { label: "All", path: "/products" },
+  { label: "Table Covers", path: "/products?category=table-covers" },
+  { label: "Cushions", path: "/products?category=cushion-covers" },
+  { label: "Aprons", path: "/products?category=aprons" },
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -44,6 +51,9 @@ export default function Navbar() {
       <header className="site-header">
         <TopBanner />
         <nav className="navbar container">
+          <button className="icon-button menu-toggle" onClick={() => setOpen(!open)} aria-label="Toggle Navigation">
+            {open ? <X /> : <Menu />}
+          </button>
           <Link to="/" className="brand" onClick={close} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <img
               src="https://res.cloudinary.com/djligggal/image/upload/v1782812327/ChatGPT_Image_Jun_30_2026_03_08_25_PM_drkks8.png"
@@ -52,9 +62,6 @@ export default function Navbar() {
             />
             <span>Elegant</span> Home Decor
           </Link>
-          <button className="icon-button menu-toggle" onClick={() => setOpen(!open)} aria-label="Toggle Navigation">
-            {open ? <X /> : <Menu />}
-          </button>
           <div className="nav-menu">
             <NavLink to="/products">Shop</NavLink>
             <NavLink to="/products?category=table-covers">Table Covers</NavLink>
@@ -90,16 +97,7 @@ export default function Navbar() {
               </Link>
             )}
           </div>
-        </nav>
-        <div className="mobile-navbar">
-          <form className="mobile-search" onSubmit={search}>
-            <Search size={18} />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search products..." />
-          </form>
-          <div className="mobile-actions">
-            <Link className="icon-link" to="/dashboard" title="Account" onClick={(event) => requireLogin(event, "/dashboard")}>
-              <UserRound size={20} />
-            </Link>
+          <div className="mobile-nav-icons">
             <Link className="icon-link counter" to="/dashboard#wishlist" title="Wishlist" onClick={(event) => requireLogin(event, "/dashboard#wishlist")}>
               <Heart size={20} />
               {wishlistCount > 0 && <span>{wishlistCount}</span>}
@@ -108,6 +106,22 @@ export default function Navbar() {
               <ShoppingBag size={20} />
               {cartCount > 0 && <span>{cartCount}</span>}
             </Link>
+            <Link className="icon-link" to="/dashboard" title="Account" onClick={(event) => requireLogin(event, "/dashboard")}>
+              <UserRound size={20} />
+            </Link>
+          </div>
+        </nav>
+        <div className="mobile-navbar">
+          <form className="mobile-search" onSubmit={search}>
+            <Search size={18} />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search table covers, cushions, aprons..." />
+          </form>
+          <div className="category-chips">
+            {CATEGORIES.map((cat) => (
+              <Link key={cat.label} className="chip" to={cat.path} onClick={close}>
+                {cat.label}
+              </Link>
+            ))}
           </div>
         </div>
       </header>

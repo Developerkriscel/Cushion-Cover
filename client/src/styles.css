@@ -294,14 +294,11 @@ textarea {
   flex-shrink: 0;
 }
 
-.mobile-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+.mobile-nav-icons {
+  display: none;
 }
 
-.mobile-actions .icon-link {
+.mobile-nav-icons .icon-link {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -311,25 +308,57 @@ textarea {
   position: relative;
 }
 
-.mobile-actions .icon-link:hover {
+.mobile-nav-icons .icon-link:hover {
   color: var(--ink);
 }
 
-.mobile-actions .counter span {
+.mobile-nav-icons .counter span {
   position: absolute;
   top: 4px;
-  right: -4px;
+  right: -2px;
   background: var(--primary-color);
   color: white;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 800;
-  min-width: 17px;
-  height: 17px;
+  min-width: 16px;
+  height: 16px;
   border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
+}
+
+.category-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 2px 0;
+}
+
+.category-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.chip:hover {
+  background: var(--soft);
+  border-color: var(--primary-color);
+  color: var(--ink);
 }
 
 .drawer-user {
@@ -2654,11 +2683,27 @@ th {
 
 @media (max-width: 1050px) {
   .navbar {
-    grid-template-columns: auto auto 1fr;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: auto;
+    min-height: 64px;
+    padding: 6px 0;
   }
 
   .menu-toggle {
     display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    order: 0;
+  }
+
+  .brand {
+    order: 1;
+    flex: 1;
+    min-width: 0;
   }
 
   .nav-menu {
@@ -2670,7 +2715,14 @@ th {
   }
 
   .nav-actions {
-    justify-self: end;
+    display: none;
+  }
+
+  .mobile-nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    order: 2;
   }
 
   .mobile-navbar {
@@ -2763,48 +2815,50 @@ th {
     grid-template-columns: 1fr auto;
   }
 
-  .nav-actions {
-    display: none;
+  .navbar {
+    min-height: 58px;
+    padding: 4px 0;
+    gap: 6px;
   }
 
   .brand {
-    font-size: 1rem;
+    font-size: 0.95rem;
     min-width: 0;
     overflow: hidden;
   }
 
   .brand img {
-    height: 36px !important;
+    height: 34px !important;
   }
 
-  .menu-toggle {
-    min-width: 44px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .mobile-nav-icons .icon-link {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .mobile-nav-icons .icon-link svg {
+    width: 20px;
+    height: 20px;
   }
 
   .mobile-navbar {
-    padding: 10px 16px 12px;
-    gap: 10px;
+    padding: 8px 16px 10px;
+    gap: 8px;
   }
 
   .mobile-search {
-    padding: 10px 14px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(65, 50, 32, 0.08);
   }
 
   .mobile-search input {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
   }
 
-  .mobile-actions {
-    gap: 28px;
-  }
-
-  .mobile-actions .icon-link svg {
-    width: 22px;
-    height: 22px;
+  .chip {
+    padding: 6px 14px;
+    font-size: 0.8rem;
   }
 
   .hero {
@@ -3138,31 +3192,60 @@ th {
     display: none;
   }
 
+  .navbar {
+    min-height: 52px;
+    padding: 2px 0;
+    gap: 4px;
+  }
+
   .brand {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .brand img {
-    height: 32px !important;
+    height: 28px !important;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  .menu-toggle {
+    min-width: 38px;
+    min-height: 38px;
+  }
+
+  .mobile-nav-icons .icon-link {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .mobile-nav-icons .icon-link svg {
+    width: 18px;
+    height: 18px;
   }
 
   .mobile-navbar {
-    padding: 8px 12px 10px;
-    gap: 8px;
+    padding: 6px 12px 8px;
+    gap: 6px;
   }
 
   .mobile-search {
-    padding: 8px 12px;
+    padding: 6px 12px;
     border-radius: 8px;
   }
 
-  .mobile-actions {
-    gap: 20px;
+  .mobile-search input {
+    font-size: 0.82rem;
   }
 
-  .mobile-actions .icon-link svg {
-    width: 20px;
-    height: 20px;
+  .chip {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+
+  .category-chips {
+    gap: 6px;
   }
 }
 
