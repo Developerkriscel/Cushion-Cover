@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../services/api.js";
 import DashboardSidebar from "../components/DashboardSidebar.jsx";
@@ -19,7 +19,8 @@ const pageVariants = {
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
   const wishlist = useSelector((state) => state.wishlist.items);
-  const [active, setActive] = useState(window.location.hash?.replace("#", "") || "profile");
+  const location = useLocation();
+  const [active, setActive] = useState(location.hash?.replace("#", "") || "profile");
   const [orders, setOrders] = useState([]);
   const [addresses, setAddresses] = useState([]);
   const [expandedOrders, setExpandedOrders] = useState({});
@@ -40,6 +41,7 @@ export default function Dashboard() {
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
+              id={active}
               variants={pageVariants}
               initial="initial"
               animate="animate"

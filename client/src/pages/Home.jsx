@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
+import { CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Award, PackageCheck, RefreshCcw, ShieldCheck } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import api from "../services/api.js";
 import { categories as fallbackCategories, products as fallbackProducts } from "../data/fallbackCatalog.js";
@@ -10,6 +12,7 @@ import ProductGrid from "../components/ProductGrid.jsx";
 import HorizontalScrollCarousel from "../components/HorizontalScrollCarousel.jsx";
 import SlidingCarousel from "../components/SlidingCarousel.jsx";
 import TestimonialCard from "../components/TestimonialCard.jsx";
+import MagneticButton from "../components/MagneticButton.jsx";
 
 export default function Home() {
   const [categories, setCategories] = useState(fallbackCategories);
@@ -157,15 +160,19 @@ export default function Home() {
 
 function Newsletter() {
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [message, setMessage] = useState("");
   const submit = async (event) => {
     event.preventDefault();
+    setStatus("loading");
     try {
       const { data } = await api.post("/content/newsletter", { email });
       setMessage(data.message);
       setEmail("");
+      setStatus("success");
     } catch {
       setMessage("We Could Not Subscribe This Email Right Now.");
+      setStatus("error");
     }
   };
   return (
@@ -176,9 +183,47 @@ function Newsletter() {
           <h2>Join the Home Styling Letter</h2>
         </div>
         <form onSubmit={submit}>
-          <input type="email" placeholder="Email Address" value={email} onChange={(event) => setEmail(event.target.value)} required />
-          <button className="button primary">Subscribe</button>
-          {message && <small>{message}</small>}
+          <input type="email" placeholder="Email Address" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={status === "loading" || status === "success"} />
+          <MagneticButton>
+            <button className="button primary" disabled={status === "loading" || status === "success"} type="submit">
+              {status === "loading" ? (
+                <span className="btn-spinner" />
+              ) : status === "success" ? (
+                <motion.span
+                  className="btn-checkmark"
+                  initial={{ scale: 0, rotate: -45 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 14 }}
+                >
+                  <CheckCircle2 size={18} />
+                </motion.span>
+              ) : (
+                "Subscribe"
+              )}
+            </button>
+          </MagneticButton>
+          <AnimatePresence>
+            {message && (
+              <motion.small
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                {status === "success" ? (
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.15 }}
+                  >
+                    {message}
+                  </motion.span>
+                ) : (
+                  message
+                )}
+              </motion.small>
+            )}
+          </AnimatePresence>
         </form>
       </div>
     </section>

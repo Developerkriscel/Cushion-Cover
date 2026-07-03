@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Navbar from "./components/Navbar.jsx";
 import ScrollProgress from "./components/ScrollProgress.jsx";
 import Footer from "./components/Footer.jsx";
@@ -39,11 +40,33 @@ export default function App() {
   );
 }
 
+const NAV_OFFSET = 100;
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+        window.scrollTo({ top, behavior: "smooth" });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname, hash]);
+
+  return null;
+}
+
 function SiteLayout() {
   return (
     <>
       <Navbar />
       <ScrollProgress />
+      <ScrollToTop />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
