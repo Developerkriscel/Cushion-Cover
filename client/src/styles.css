@@ -268,8 +268,8 @@ textarea {
 .nav-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 25;
-  background: rgba(0, 0, 0, 0.45);
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .nav-drawer {
@@ -277,7 +277,7 @@ textarea {
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 26;
+  z-index: 50;
   width: 300px;
   max-width: 80vw;
   background: white;
@@ -285,8 +285,9 @@ textarea {
   flex-direction: column;
   gap: 4px;
   padding: 20px 24px 32px;
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
   overflow-y: auto;
+  height: 100dvh;
 }
 
 .nav-drawer-header {
