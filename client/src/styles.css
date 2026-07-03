@@ -253,8 +253,7 @@ textarea {
   position: relative;
   min-height: 80vh;
   display: grid;
-  align-items: center;
-  overflow: hidden;
+  align-items: start;
   background:
     radial-gradient(circle at 82% 24%, rgba(189, 147, 89, 0.18), transparent 32%),
     linear-gradient(115deg, #fffdfa 0%, #fdf6f0 46%, #f1dfcb 100%);
@@ -282,7 +281,7 @@ textarea {
   grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
   gap: clamp(36px, 7vw, 92px);
   align-items: center;
-  padding: 84px 0 110px;
+  padding: 12px 0 80px;
 }
 
 .hero-copy {
@@ -431,9 +430,9 @@ textarea {
 }
 
 .floating-product-1 {
-  top: 3%;
-  left: 6%;
-  width: 42%;
+  top: 2%;
+  left: 4%;
+  width: 40%;
   aspect-ratio: 3 / 4;
   transform: rotate(-5deg);
   animation-duration: 3.8s;
@@ -445,9 +444,9 @@ textarea {
 }
 
 .floating-product-2 {
-  top: 18%;
-  right: 2%;
-  width: 40%;
+  top: 16%;
+  right: 0%;
+  width: 38%;
   aspect-ratio: 3 / 4;
   transform: rotate(5deg);
   animation-duration: 4.6s;
@@ -459,9 +458,9 @@ textarea {
 }
 
 .floating-product-3 {
-  bottom: 4%;
-  left: 3%;
-  width: 46%;
+  bottom: 3%;
+  left: 2%;
+  width: 44%;
   aspect-ratio: 4 / 5;
   transform: rotate(0deg);
   animation-duration: 3.2s;
@@ -803,6 +802,8 @@ textarea {
   overflow: hidden;
   width: 100%;
   border-radius: 8px;
+  cursor: grab;
+  user-select: none;
 }
 
 .sliding-track {
@@ -2034,7 +2035,7 @@ th {
   .hero-content {
     grid-template-columns: 1fr;
     gap: 30px;
-    padding: 64px 0 76px;
+    padding: 10px 0 60px;
   }
 
   .hero-float-stage {
@@ -2086,7 +2087,7 @@ th {
   }
 
   .hero-content {
-    padding: 48px 0 58px;
+    padding: 8px 0 48px;
   }
 
   .hero-float-stage {

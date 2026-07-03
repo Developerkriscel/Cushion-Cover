@@ -11,6 +11,21 @@ export default function SlidingCarousel({ products, title, eyebrow = "New Arriva
   const [noTransition, setNoTransition] = useState(false);
   const [visibleCount, setVisibleCount] = useState(4);
   const dragRef = useRef({ dragging: false, startX: 0, startScroll: 0 });
+  const resumeTimerRef = useRef(null);
+
+  const clearResumeTimer = () => {
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+  };
+
+  const startResumeTimer = () => {
+    clearResumeTimer();
+    resumeTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 4000);
+  };
 
   const updateVisibleCount = useCallback(() => {
     const w = window.innerWidth;
@@ -23,7 +38,10 @@ export default function SlidingCarousel({ products, title, eyebrow = "New Arriva
   useEffect(() => {
     updateVisibleCount();
     window.addEventListener("resize", updateVisibleCount);
-    return () => window.removeEventListener("resize", updateVisibleCount);
+    return () => {
+      window.removeEventListener("resize", updateVisibleCount);
+      clearResumeTimer();
+    };
   }, [updateVisibleCount]);
 
   const totalSlides = Math.max(1, Math.ceil(products.length / visibleCount));
@@ -63,6 +81,7 @@ export default function SlidingCarousel({ products, title, eyebrow = "New Arriva
     if (!isInfinite) return;
     dragRef.current = { dragging: true, startX: clientX, startScroll: current };
     setIsPaused(true);
+    clearResumeTimer();
   };
 
   const handleDragMove = (clientX) => {
@@ -76,7 +95,7 @@ export default function SlidingCarousel({ products, title, eyebrow = "New Arriva
 
   const handleDragEnd = () => {
     dragRef.current.dragging = false;
-    setIsPaused(false);
+    startResumeTimer();
   };
 
   if (!products.length) return null;
@@ -98,6 +117,10 @@ export default function SlidingCarousel({ products, title, eyebrow = "New Arriva
         <div
           className="sliding-viewport"
           ref={viewportRef}
+          onMouseDown={(e) => handleDragStart(e.pageX)}
+          onMouseMove={(e) => handleDragMove(e.pageX)}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
           onTouchStart={(e) => handleDragStart(e.touches[0].pageX)}
           onTouchMove={(e) => handleDragMove(e.touches[0].pageX)}
           onTouchEnd={handleDragEnd}
