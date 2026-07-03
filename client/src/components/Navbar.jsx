@@ -58,7 +58,7 @@ export default function Navbar() {
             <img
               src="https://res.cloudinary.com/djligggal/image/upload/v1782812327/ChatGPT_Image_Jun_30_2026_03_08_25_PM_drkks8.png"
               alt="Elegant Home Decor"
-              style={{ height: '44px', width: 'auto', objectFit: 'contain' }}
+              style={{ height: '48px', width: 'auto', objectFit: 'contain' }}
             />
             <span>Elegant</span> Home Decor
           </Link>
