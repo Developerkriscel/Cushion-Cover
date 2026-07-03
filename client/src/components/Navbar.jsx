@@ -1,4 +1,4 @@
-import { Heart, Menu, Search, ShoppingBag, UserRound, X } from "lucide-react";
+import { Heart, LogIn, Menu, Search, ShoppingBag, UserPlus, UserRound, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -91,6 +91,25 @@ export default function Navbar() {
             )}
           </div>
         </nav>
+        <div className="mobile-navbar">
+          <form className="mobile-search" onSubmit={search}>
+            <Search size={18} />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search products..." />
+          </form>
+          <div className="mobile-actions">
+            <Link className="icon-link" to="/dashboard" title="Account" onClick={(event) => requireLogin(event, "/dashboard")}>
+              <UserRound size={20} />
+            </Link>
+            <Link className="icon-link counter" to="/dashboard#wishlist" title="Wishlist" onClick={(event) => requireLogin(event, "/dashboard#wishlist")}>
+              <Heart size={20} />
+              {wishlistCount > 0 && <span>{wishlistCount}</span>}
+            </Link>
+            <Link className="icon-link counter" to="/cart" title="Cart">
+              <ShoppingBag size={20} />
+              {cartCount > 0 && <span>{cartCount}</span>}
+            </Link>
+          </div>
+        </div>
       </header>
       <AnimatePresence>
         {open && (
@@ -116,6 +135,21 @@ export default function Navbar() {
                   <X />
                 </button>
               </div>
+              {user ? (
+                <div className="drawer-user">
+                  <UserRound size={18} />
+                  <span>{user.name || "My Account"}</span>
+                </div>
+              ) : (
+                <div className="drawer-auth">
+                  <Link className="drawer-auth-btn" to="/login" onClick={close}>
+                    <LogIn size={18} /> Login
+                  </Link>
+                  <Link className="drawer-auth-btn" to="/register" onClick={close}>
+                    <UserPlus size={18} /> Register
+                  </Link>
+                </div>
+              )}
               <NavLink to="/products" onClick={close}>Shop</NavLink>
               <NavLink to="/products?category=table-covers" onClick={close}>Table Covers</NavLink>
               <NavLink to="/products?category=cushion-covers" onClick={close}>Cushions</NavLink>
@@ -123,6 +157,11 @@ export default function Navbar() {
               <NavLink to="/about" onClick={close}>About</NavLink>
               <NavLink to="/contact" onClick={close}>Contact</NavLink>
               {user?.role === "admin" && <NavLink to="/admin" onClick={close}>Admin Dashboard</NavLink>}
+              {user && (
+                <button className="drawer-logout" onClick={() => { dispatch(logout()); close(); }}>
+                  Logout
+                </button>
+              )}
             </motion.div>
           </>
         )}
