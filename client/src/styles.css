@@ -587,6 +587,20 @@ textarea {
   height: 260px;
   width: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease-in-out;
+  transform-origin: center center;
+}
+
+.category-card:hover img {
+  transform: scale(1.1);
+}
+
+.category-card:first-child img {
+  transform-origin: left center;
+}
+
+.category-card:last-child img {
+  transform-origin: right center;
 }
 
 .category-card div,
