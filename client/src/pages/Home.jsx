@@ -16,6 +16,10 @@ export default function Home() {
   const [products, setProducts] = useState(fallbackProducts);
   const seasonalRef = useRef(null);
   const [seasonalInView, setSeasonalInView] = useState(false);
+  const trustRef = useRef(null);
+  const [trustInView, setTrustInView] = useState(false);
+  const testimonialRef = useRef(null);
+  const [testimonialInView, setTestimonialInView] = useState(false);
 
   useEffect(() => {
     Promise.all([api.get("/categories"), api.get("/products?limit=8")])
@@ -31,6 +35,28 @@ export default function Home() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setSeasonalInView(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = trustRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setTrustInView(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = testimonialRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setTestimonialInView(entry.isIntersecting),
       { threshold: 0.3 }
     );
     observer.observe(el);
@@ -89,31 +115,39 @@ export default function Home() {
           eyebrow="New Arrivals"
         />
       </section>
-      <section className="trust-band">
+      <section ref={trustRef} className={`trust-band${trustInView ? " visible" : ""}`}>
         <div className="container trust-grid">
           {[
             [Award, "Craft-Led Quality", "Small-Batch Textiles With Premium Fabric Selection."],
             [PackageCheck, "Secure Shipping", "Carefully Packed Orders With Trackable Delivery."],
             [RefreshCcw, "Easy Returns", "Transparent Exchange and Return Support."],
             [ShieldCheck, "Secure Payments", "Protected Checkout Using Trusted Gateways."]
-          ].map(([Icon, title, text]) => (
-            <div key={title}>
-              <Icon />
-              <h3>{title}</h3>
-              <p>{text}</p>
+          ].map(([Icon, title, text], i) => (
+            <div key={title} className="trust-item" style={{ transitionDelay: `${i * 0.15}s` }}>
+              <div className="trust-icon-wrap" style={{ transitionDelay: `${i * 0.15}s` }}>
+                <Icon />
+              </div>
+              <h3 className="trust-line" style={{ transitionDelay: `${i * 0.15 + 0.1}s` }}>{title}</h3>
+              <p className="trust-line" style={{ transitionDelay: `${i * 0.15 + 0.2}s` }}>{text}</p>
             </div>
           ))}
         </div>
       </section>
-      <section className="container section">
+      <section ref={testimonialRef} className={`container section testimonials-section${testimonialInView ? " visible" : ""}`}>
         <div className="section-heading">
-          <span className="eyebrow">Testimonials</span>
-          <h2>Warm Words From Styled Homes</h2>
+          <span className="eyebrow testimonial-heading-line" style={{ transitionDelay: "0s" }}>Testimonials</span>
+          <h2 className="testimonial-heading-line" style={{ transitionDelay: "0.15s" }}>Warm Words From Styled Homes</h2>
         </div>
         <div className="testimonial-grid">
-          <TestimonialCard quote="The Cushion Covers Instantly Made Our Living Room Look Finished and Elegant." name="Ananya S." location="Bengaluru" />
-          <TestimonialCard quote="Beautiful Fabric, Thoughtful Packaging, and the Table Cover Survived a Full Family Dinner." name="Meera K." location="Pune" />
-          <TestimonialCard quote="The Apron Set Was a Perfect Gift. It Feels Premium Without Being Delicate." name="Rhea M." location="Jaipur" />
+          <div className="testimonial-card-wrap" style={{ transitionDelay: "0.35s" }}>
+            <TestimonialCard quote="The Cushion Covers Instantly Made Our Living Room Look Finished and Elegant." name="Ananya S." location="Bengaluru" />
+          </div>
+          <div className="testimonial-card-wrap" style={{ transitionDelay: "0.5s" }}>
+            <TestimonialCard quote="Beautiful Fabric, Thoughtful Packaging, and the Table Cover Survived a Full Family Dinner." name="Meera K." location="Pune" />
+          </div>
+          <div className="testimonial-card-wrap" style={{ transitionDelay: "0.65s" }}>
+            <TestimonialCard quote="The Apron Set Was a Perfect Gift. It Feels Premium Without Being Delicate." name="Rhea M." location="Jaipur" />
+          </div>
         </div>
       </section>
       <Newsletter />

@@ -5,7 +5,7 @@ export default function TestimonialCard({ quote, name, location }) {
     <article className="testimonial">
       <div className="stars">
         {[1, 2, 3, 4, 5].map((star) => (
-          <Star key={star} size={16} fill="currentColor" />
+          <Star key={star} size={16} fill="currentColor" style={{ transitionDelay: `${star * 0.08}s` }} />
         ))}
       </div>
       <p>{quote}</p>
