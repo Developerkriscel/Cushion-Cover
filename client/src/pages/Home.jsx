@@ -8,6 +8,7 @@ import HeroSection from "../components/HeroSection.jsx";
 import CategoryCard from "../components/CategoryCard.jsx";
 import ProductGrid from "../components/ProductGrid.jsx";
 import HorizontalScrollCarousel from "../components/HorizontalScrollCarousel.jsx";
+import SlidingCarousel from "../components/SlidingCarousel.jsx";
 import TestimonialCard from "../components/TestimonialCard.jsx";
 
 export default function Home() {
@@ -69,11 +70,11 @@ export default function Home() {
         <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=1000&q=80" alt="Seasonal Dining Decor" />
       </section>
       <section className="container section">
-        <div className="section-heading">
-          <span className="eyebrow">New Arrivals</span>
-          <h2>Fresh Fabrics for Everyday Beauty</h2>
-        </div>
-        <ProductGrid products={newArrivals} />
+        <SlidingCarousel
+          products={newArrivals}
+          title="Fresh Fabrics for Everyday Beauty"
+          eyebrow="New Arrivals"
+        />
       </section>
       <section className="trust-band">
         <div className="container trust-grid">

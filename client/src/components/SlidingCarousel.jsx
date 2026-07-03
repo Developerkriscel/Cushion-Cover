@@ -1,0 +1,141 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import ProductCard from "./ProductCard.jsx";
+
+export default function SlidingCarousel({ products, title, eyebrow = "New Arrivals" }) {
+  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+  const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [timerKey, setTimerKey] = useState(0);
+  const [noTransition, setNoTransition] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(4);
+  const dragRef = useRef({ dragging: false, startX: 0, startScroll: 0 });
+
+  const updateVisibleCount = useCallback(() => {
+    const w = window.innerWidth;
+    if (w <= 480) setVisibleCount(1);
+    else if (w <= 720) setVisibleCount(2);
+    else if (w <= 1050) setVisibleCount(3);
+    else setVisibleCount(4);
+  }, []);
+
+  useEffect(() => {
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, [updateVisibleCount]);
+
+  const totalSlides = Math.max(1, Math.ceil(products.length / visibleCount));
+  const isInfinite = totalSlides > 1 && products.length > visibleCount;
+  const extendedProducts = isInfinite ? [...products, ...products.slice(0, visibleCount)] : products;
+
+  useEffect(() => {
+    if (isPaused || !isInfinite) return;
+    const id = setInterval(() => {
+      setCurrent((prev) => prev + 1);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [isPaused, isInfinite, timerKey]);
+
+  const handleTransitionEnd = () => {
+    if (current >= totalSlides) {
+      setNoTransition(true);
+      setCurrent(0);
+      requestAnimationFrame(() => requestAnimationFrame(() => setNoTransition(false)));
+    }
+  };
+
+  const step = viewportRef.current?.offsetWidth || 0;
+
+  const goTo = (dir) => {
+    if (!isInfinite) return;
+    setTimerKey((k) => k + 1);
+    setCurrent((prev) => {
+      let next = prev + dir;
+      if (next < 0) next = totalSlides - 1;
+      if (next >= totalSlides) next = 0;
+      return next;
+    });
+  };
+
+  const handleDragStart = (clientX) => {
+    if (!isInfinite) return;
+    dragRef.current = { dragging: true, startX: clientX, startScroll: current };
+    setIsPaused(true);
+  };
+
+  const handleDragMove = (clientX) => {
+    if (!dragRef.current.dragging) return;
+    const diff = dragRef.current.startX - clientX;
+    if (Math.abs(diff) > 50) {
+      goTo(diff > 0 ? 1 : -1);
+      dragRef.current.dragging = false;
+    }
+  };
+
+  const handleDragEnd = () => {
+    dragRef.current.dragging = false;
+    setIsPaused(false);
+  };
+
+  if (!products.length) return null;
+
+  const dotIndex = current >= totalSlides ? 0 : current;
+
+  return (
+    <section onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+      <div className="section-heading">
+        <span className="eyebrow">{eyebrow}</span>
+        <h2>{title}</h2>
+      </div>
+      <div className="sliding-wrapper">
+        {isInfinite && (
+          <button className="scroll-arrow scroll-arrow-left" onClick={() => goTo(-1)} aria-label="Previous">
+            <ChevronLeft size={22} />
+          </button>
+        )}
+        <div
+          className="sliding-viewport"
+          ref={viewportRef}
+          onTouchStart={(e) => handleDragStart(e.touches[0].pageX)}
+          onTouchMove={(e) => handleDragMove(e.touches[0].pageX)}
+          onTouchEnd={handleDragEnd}
+        >
+          <div
+            ref={trackRef}
+            className="sliding-track"
+            style={{
+              transform: step ? `translateX(-${current * step}px)` : "none",
+              transition: noTransition ? "none" : "transform 0.5s ease"
+            }}
+            onTransitionEnd={handleTransitionEnd}
+          >
+            {extendedProducts.map((product, i) => (
+              <div key={`${product._id}-${i}`} className="sliding-item" data-visible={visibleCount}>
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        </div>
+        {isInfinite && (
+          <button className="scroll-arrow scroll-arrow-right" onClick={() => goTo(1)} aria-label="Next">
+            <ChevronRight size={22} />
+          </button>
+        )}
+      </div>
+      {isInfinite && (
+        <div className="slide-dots">
+          {Array.from({ length: totalSlides }).map((_, i) => (
+            <button
+              key={i}
+              className={`slide-dot${i === dotIndex ? " active" : ""}`}
+              onClick={() => { setTimerKey((k) => k + 1); setCurrent(i); }}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
