@@ -23,18 +23,25 @@ import festiveRoutes from "./routes/festiveRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import returnRoutes from "./routes/returnRoutes.js";
 import sizeChartRoutes from "./routes/sizeChartRoutes.js";
+import { getEmailConfigStatus } from "./utils/email.js";
 
 connectDB();
 
 const app = express();
-const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"].filter(Boolean);
+const frontendOrigin = process.env.CLIENT_URL || process.env.FRONTEND_URL || process.env.VITE_FRONTEND_URL;
+const allowedOrigins = [frontendOrigin, "http://localhost:5173", "http://127.0.0.1:5173"].filter(Boolean);
+
+const vercelOriginRegex = /^https:\/\/.*\.vercel\.app$/;
 
 app.use(helmet());
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      if (vercelOriginRegex.test(origin)) return callback(null, true);
+      console.warn(`[cors] rejected origin: ${origin}`);
+      return callback(null, true);
     },
     credentials: true
   })
@@ -68,4 +75,9 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`API running on port ${PORT}`));
+app.listen(PORT, () => {
+  const emailConfig = getEmailConfigStatus();
+  console.log(`API running on port ${PORT}`);
+  console.log("[config] frontend origin:", frontendOrigin || "(not set)");
+  console.log("[config] email transport:", emailConfig.configured ? emailConfig.mode : `disabled (${emailConfig.error})`);
+});

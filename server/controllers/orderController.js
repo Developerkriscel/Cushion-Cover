@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import Order from "../models/Order.js";
 import Product from "../models/Product.js";
 import Coupon from "../models/Coupon.js";
-import { sendOrderConfirmationEmail, sendLowStockAlert } from "../utils/email.js";
+import { sendAdminOrderNotificationEmail, sendOrderConfirmationEmail, sendLowStockAlert } from "../utils/email.js";
 
 const sanitizeOrderItems = (items) =>
   items.map((item) => {
@@ -89,7 +89,10 @@ const validateAndDecrementStock = async (items, res) => {
           threshold
         });
       } catch (emailErr) {
-        console.error("Low stock email alert failed:", emailErr.message);
+        console.error("[email] Low stock email alert failed:", {
+          message: emailErr.message,
+          stack: emailErr.stack
+        });
       }
     }
   }
@@ -128,9 +131,20 @@ export const createOrder = asyncHandler(async (req, res) => {
   }
 
   try {
-    await sendOrderConfirmationEmail({ to: req.user.email, name: req.user.name, order });
+    await Promise.allSettled([
+      sendOrderConfirmationEmail({ to: req.user.email, name: req.user.name, order }),
+      sendAdminOrderNotificationEmail({
+        order,
+        customerName: req.user.name,
+        customerEmail: req.user.email,
+        isGuest: false
+      })
+    ]);
   } catch (emailErr) {
-    console.error("Order confirmation email failed:", emailErr.message);
+    console.error("[email] Order notification failed:", {
+      message: emailErr.message,
+      stack: emailErr.stack
+    });
   }
 
   res.status(201).json(order);
@@ -178,9 +192,20 @@ export const createGuestOrder = asyncHandler(async (req, res) => {
   }
 
   try {
-    await sendOrderConfirmationEmail({ to: guestInfo.email, name: guestInfo.fullName, order });
+    await Promise.allSettled([
+      sendOrderConfirmationEmail({ to: guestInfo.email, name: guestInfo.fullName, order }),
+      sendAdminOrderNotificationEmail({
+        order,
+        customerName: guestInfo.fullName,
+        customerEmail: guestInfo.email,
+        isGuest: true
+      })
+    ]);
   } catch (emailErr) {
-    console.error("Guest order confirmation email failed:", emailErr.message);
+    console.error("[email] Guest order notification failed:", {
+      message: emailErr.message,
+      stack: emailErr.stack
+    });
   }
 
   res.status(201).json(order);

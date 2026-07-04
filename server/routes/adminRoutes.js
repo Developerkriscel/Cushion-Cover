@@ -7,7 +7,9 @@ import {
   getAllUsers,
   getDashboardStats,
   getLowStockProducts,
-  updateAdminProduct
+  sendEmailTest,
+  updateAdminProduct,
+  getEmailConfig
 } from "../controllers/adminController.js";
 import {
   getAllReviews,
@@ -37,6 +39,8 @@ router.put("/orders/:id/status", updateOrderStatus);
 router.put("/orders/:id/deliver", markDelivered);
 router.get("/users", getAllUsers);
 router.get("/low-stock", getLowStockProducts);
+router.get("/email/config", getEmailConfig);
+router.post("/email/test", sendEmailTest);
 router.route("/products").get(getAdminProducts).post(upload.array("images", 8), createAdminProduct);
 router.route("/products/:id").put(upload.array("images", 8), updateAdminProduct).delete(deleteAdminProduct);
 router.get("/reviews", getAllReviews);

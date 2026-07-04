@@ -1,84 +1,281 @@
 import nodemailer from "nodemailer";
 
-const hasGmailConfig = () => process.env.EMAIL_USER && process.env.EMAIL_PASS;
+const APP_NAME = "Elegant Home Decor";
+const DEFAULT_FROM_NAME = process.env.MAIL_FROM_NAME || APP_NAME;
+const DEFAULT_FROM_ADDRESS = process.env.MAIL_FROM || process.env.SMTP_FROM || process.env.EMAIL_USER || process.env.SMTP_USER;
 
-const getGmailTransporter = () => {
-  if (!hasGmailConfig()) return null;
-  return nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    requireTLS: true,
-    family: 4,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS.replace(/\s+/g, "")
-    }
-  });
+const trimValue = (value) => (typeof value === "string" ? value.trim() : value);
+
+const normalizePassword = (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value);
+
+const parseBool = (value, fallback = false) => {
+  if (value === undefined || value === null || value === "") return fallback;
+  return ["1", "true", "yes", "on"].includes(String(value).toLowerCase());
 };
 
-const hasSmtpConfig = () => process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS;
+const parseRecipients = (value) =>
+  String(value || "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+
+const getFrontendUrl = () => {
+  const fallback = process.env.NODE_ENV === "production" ? "" : "http://localhost:5173";
+  return trimValue(process.env.CLIENT_URL || process.env.FRONTEND_URL || process.env.VITE_FRONTEND_URL || fallback);
+};
+
+const resolveFrom = () => {
+  if (!DEFAULT_FROM_ADDRESS) return null;
+  return `"${DEFAULT_FROM_NAME}" <${DEFAULT_FROM_ADDRESS}>`;
+};
+
+const resolveTransportConfig = () => {
+  const smtpHost = trimValue(process.env.SMTP_HOST);
+  const smtpUser = trimValue(process.env.SMTP_USER);
+  const smtpPass = normalizePassword(process.env.SMTP_PASS);
+  const emailUser = trimValue(process.env.EMAIL_USER);
+  const emailPass = normalizePassword(process.env.EMAIL_PASS);
+
+  if (smtpHost) {
+    if (!smtpUser || !smtpPass) {
+      return {
+        error: "SMTP_HOST is set, but SMTP_USER or SMTP_PASS is missing."
+      };
+    }
+
+    return {
+      mode: "smtp",
+      config: {
+        host: smtpHost,
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: parseBool(process.env.SMTP_SECURE, false),
+        auth: {
+          user: smtpUser,
+          pass: smtpPass
+        },
+        family: 4
+      }
+    };
+  }
+
+  if (emailUser && emailPass) {
+    return {
+      mode: "gmail-app-password",
+      config: {
+        host: "smtp.gmail.com",
+        port: Number(process.env.EMAIL_SMTP_PORT) || 587,
+        secure: parseBool(process.env.EMAIL_SECURE, false),
+        auth: {
+          user: emailUser,
+          pass: emailPass
+        },
+        family: 4
+      }
+    };
+  }
+
+  return {
+    error:
+      "No email credentials found. Set SMTP_HOST/SMTP_USER/SMTP_PASS for a generic SMTP provider, or EMAIL_USER/EMAIL_PASS for Gmail App Password auth."
+  };
+};
+
+let transporterInstance = null;
+let transporterMode = null;
+let lastVerifyAttempt = 0;
+const VERIFY_COOLDOWN_MS = 60000;
+
+const createTransporter = () => {
+  const transport = resolveTransportConfig();
+  if (transport.error) {
+    return { transporter: null, mode: null, error: transport.error };
+  }
+
+  const transporter = nodemailer.createTransport(transport.config);
+
+  transporter.verify().then((ok) => {
+    if (ok) {
+      console.log(`[email] transporter verified (mode: ${transport.mode})`);
+    }
+  }).catch((err) => {
+    console.warn(`[email] transporter verify() failed — will retry on next send: ${err.message}`);
+  });
+
+  return { transporter, mode: transport.mode, error: null };
+};
 
 const getTransporter = () => {
-  if (!hasSmtpConfig()) return null;
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: process.env.SMTP_SECURE === "true",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS.replace(/\s+/g, "")
-    }
-  });
+  const now = Date.now();
+
+  if (!transporterInstance) {
+    const result = createTransporter();
+    transporterInstance = result.transporter;
+    transporterMode = result.mode;
+    lastVerifyAttempt = now;
+  }
+
+  return { transporter: transporterInstance, mode: transporterMode };
 };
 
-const sendMail = async ({ to, subject, text }) => {
-  const transporter = getTransporter();
+const resetTransporter = () => {
+  transporterInstance = null;
+  transporterMode = null;
+};
+
+const sendMailWithRetry = async (mailOptions, kind, attempt = 1) => {
+  const { transporter } = getTransporter();
+
   if (!transporter) {
-    console.log(`Email skipped (no SMTP): ${subject}`, { to });
-    return;
+    return { skipped: true, reason: getEmailConfigStatus().error || "transporter not available" };
   }
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log(`[email] sent ${kind}`, {
+      to: mailOptions.to,
+      subject: mailOptions.subject,
+      messageId: info.messageId,
+      response: info.response
+    });
+
+    return { sent: true, messageId: info.messageId };
+  } catch (error) {
+    const errInfo = {
+      code: error.code,
+      command: error.command,
+      response: error.response,
+      responseCode: error.responseCode
+    };
+
+    console.error(`[email] failed ${kind} (attempt ${attempt})`, {
+      to: mailOptions.to,
+      subject: mailOptions.subject,
+      error: error.message,
+      ...errInfo
+    });
+
+    if (attempt === 1) {
+      console.log(`[email] retrying ${kind} in 1s...`);
+      await new Promise((r) => setTimeout(r, 1000));
+
+      if (!transporterInstance) {
+        const result = createTransporter();
+        transporterInstance = result.transporter;
+        transporterMode = result.mode;
+      }
+
+      return sendMailWithRetry(mailOptions, kind, 2);
+    }
+
+    if (error.code === "EAUTH") {
+      resetTransporter();
+    }
+
+    throw error;
+  }
+};
+
+export const getEmailConfigStatus = () => {
+  const transport = resolveTransportConfig();
+  return {
+    configured: !transport.error,
+    mode: transport.mode || transporterMode || null,
+    error: transport.error || null,
+    from: resolveFrom(),
+    frontendUrl: getFrontendUrl()
+  };
+};
+
+export const sendTestEmail = async ({ to, label = "Production Email Test" }) => {
+  const subject = `${APP_NAME} - ${label}`;
+  const text = [
+    `Hi,`,
+    "",
+    `This is a test email from ${APP_NAME}.`,
+    `If you received this message, the deployed email configuration is working.`,
+    "",
+    `Time: ${new Date().toISOString()}`,
+    `Environment: ${process.env.NODE_ENV || "development"}`,
+    "",
+    `- ${APP_NAME} Team`
+  ].join("\n");
+
+  return sendMail({
+    kind: "test-email",
     to,
     subject,
     text
   });
 };
 
-export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
-  const transporter = getGmailTransporter();
-  if (!transporter) {
-    console.log("Order confirmation email skipped (no EMAIL_USER / EMAIL_PASS)", { to, order: order.orderNumber });
-    return;
+const logEmailSkip = (kind, details) => {
+  console.warn(`[email] skipped ${kind}`, details);
+};
+
+const logEmailFailure = (kind, details, error) => {
+  console.error(`[email] failed ${kind}`, {
+    ...details,
+    error: error.message,
+    code: error.code,
+    stack: error.stack
+  });
+};
+
+const sendMail = async ({ to, subject, text, html, replyTo, kind = "message", from }) => {
+  const resolvedFrom = from || resolveFrom();
+  if (!resolvedFrom) {
+    logEmailSkip(kind, {
+      to,
+      subject,
+      reason: "MAIL_FROM / SMTP_FROM / EMAIL_USER / SMTP_USER is missing"
+    });
+    return { skipped: true };
   }
 
+  const mailOptions = {
+    from: resolvedFrom,
+    to,
+    subject,
+    text,
+    html,
+    replyTo
+  };
+
+  try {
+    return await sendMailWithRetry(mailOptions, kind);
+  } catch (error) {
+    logEmailFailure(kind, { to, subject }, error);
+    return { sent: false, error: error.message };
+  }
+};
+
+const formatAddressBlock = (lines = []) => lines.filter(Boolean).join("<br/>");
+
+const buildOrderEmailHtml = (order, name) => {
   const itemsHtml = order.orderItems
     .map(
       (item) =>
         `<tr>
-          <td style="padding: 10px 0; border-bottom: 1px solid #eee; color: #3d2c1b;">${item.name || "Item"}</td>
-          <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: center; color: #3d2c1b;">${item.quantity}</td>
-          <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right; color: #3d2c1b;">Rs. ${(item.price * item.quantity).toFixed(2)}</td>
+          <td style="padding: 10px 0; border-bottom: 1px solid #eee; color:#3d2c1b;">${item.name || "Item"}</td>
+          <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: center; color:#3d2c1b;">${item.quantity}</td>
+          <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right; color:#3d2c1b;">Rs. ${(item.price * item.quantity).toFixed(2)}</td>
         </tr>`
     )
     .join("");
 
   const shippingHtml = order.shippingAddress
-    ? [
+    ? formatAddressBlock([
         order.shippingAddress.fullName,
         order.shippingAddress.addressLine1,
         order.shippingAddress.addressLine2,
         [order.shippingAddress.city, order.shippingAddress.state].filter(Boolean).join(", "),
         order.shippingAddress.postalCode,
         order.shippingAddress.country
-      ]
-        .filter(Boolean)
-        .join("<br/>")
+      ])
     : "N/A";
 
-  const subject = `Order Confirmed – ${order.orderNumber}`;
-  const html = `
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,19 +287,15 @@ export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
     <tr>
       <td align="center">
         <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(139,69,19,0.1);">
-          <!-- Header -->
           <tr>
             <td style="background:#8b4513; padding: 28px 32px; text-align: center;">
-              <h1 style="margin:0; color:#ffffff; font-size: 22px; font-family: 'Playfair Display', Georgia, serif; letter-spacing: 0.5px;">Elegant Home Decor</h1>
+              <h1 style="margin:0; color:#ffffff; font-size: 22px; font-family: 'Playfair Display', Georgia, serif; letter-spacing: 0.5px;">${APP_NAME}</h1>
             </td>
           </tr>
-          <!-- Body -->
           <tr>
             <td style="padding: 32px;">
               <p style="margin:0 0 6px; color:#3d2c1b; font-size: 16px;">Hi ${name},</p>
               <p style="margin:0 0 20px; color:#5c4a36; font-size: 15px; line-height: 1.6;">Thank you for your order! We're thrilled to help you add a touch of elegance to your home.</p>
-
-              <!-- Order Info -->
               <table width="100%" cellpadding="0" cellspacing="0" style="background:#fdf6f0; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px;">
                 <tr>
                   <td style="padding: 4px 0; color:#5c4a36; font-size: 13px;">Order ID</td>
@@ -117,8 +310,6 @@ export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
                   <td style="padding: 4px 0; text-align: right; color:#3d2c1b; font-size: 13px; font-weight: 600;">${order.orderStatus}</td>
                 </tr>
               </table>
-
-              <!-- Items Table -->
               <h2 style="margin:0 0 12px; color:#3d2c1b; font-size: 15px; font-weight: 600;">Items Ordered</h2>
               <table width="100%" cellpadding="0" cellspacing="0">
                 <thead>
@@ -132,8 +323,6 @@ export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
                   ${itemsHtml}
                 </tbody>
               </table>
-
-              <!-- Totals -->
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 16px;">
                 <tr>
                   <td style="padding: 4px 0; color:#5c4a36; font-size: 13px;">Subtotal</td>
@@ -141,7 +330,7 @@ export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
                 </tr>
                 <tr>
                   <td style="padding: 4px 0; color:#5c4a36; font-size: 13px;">Shipping</td>
-                  <td style="padding: 4px 0; text-align: right; color:#3d2c1b; font-size: 13px;">${order.shippingPrice === 0 ? "Free" : "Rs. " + order.shippingPrice?.toFixed(2)}</td>
+                  <td style="padding: 4px 0; text-align: right; color:#3d2c1b; font-size: 13px;">${order.shippingPrice === 0 ? "Free" : `Rs. ${order.shippingPrice?.toFixed(2)}`}</td>
                 </tr>
                 <tr>
                   <td style="padding: 4px 0; color:#5c4a36; font-size: 13px;">Tax</td>
@@ -157,20 +346,15 @@ export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
                   <td style="padding: 8px 0 0; border-top: 2px solid #e8d5c4; text-align: right; color:#8b4513; font-size: 18px; font-weight: 700;">Rs. ${order.totalPrice?.toFixed(2) || "0.00"}</td>
                 </tr>
               </table>
-
-              <!-- Shipping Address -->
               <h2 style="margin: 24px 0 8px; color:#3d2c1b; font-size: 15px; font-weight: 600;">Shipping Address</h2>
               <p style="margin:0; color:#5c4a36; font-size: 13px; line-height: 1.7;">${shippingHtml}</p>
-
-              <!-- Next Steps -->
               <h2 style="margin: 24px 0 8px; color:#3d2c1b; font-size: 15px; font-weight: 600;">What's Next?</h2>
               <p style="margin:0; color:#5c4a36; font-size: 13px; line-height: 1.7;">We are preparing your order and will notify you once it ships. You can track your order status anytime from your account dashboard.</p>
             </td>
           </tr>
-          <!-- Footer -->
           <tr>
             <td style="background:#fdf6f0; padding: 20px 32px; text-align: center;">
-              <p style="margin:0; color:#a86445; font-size: 12px;">Elegant Home Decor &bull; Crafted with Care</p>
+              <p style="margin:0; color:#a86445; font-size: 12px;">${APP_NAME} &bull; Crafted with Care</p>
               <p style="margin:6px 0 0; color:#b8977a; font-size: 11px;">If you have any questions, please reply to this email or contact our support team.</p>
             </td>
           </tr>
@@ -180,49 +364,156 @@ export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
   </table>
 </body>
 </html>`;
+};
 
-  await transporter.sendMail({
-    from: `"Elegant Home Decor" <${process.env.EMAIL_USER}>`,
+const buildOrderEmailText = (order, name) =>
+  [
+    `Hi ${name},`,
+    "",
+    "Thank you for your order!",
+    `Order ID: ${order.orderNumber}`,
+    `Payment Method: ${order.paymentMethod || "COD"}`,
+    `Status: ${order.orderStatus}`,
+    `Subtotal: Rs. ${order.itemsPrice?.toFixed(2) || "0.00"}`,
+    `Shipping: ${order.shippingPrice === 0 ? "Free" : `Rs. ${order.shippingPrice?.toFixed(2)}`}`,
+    `Tax: Rs. ${order.taxPrice?.toFixed(2) || "0.00"}`,
+    order.coupon?.discountAmount ? `Coupon Discount: -Rs. ${order.coupon.discountAmount.toFixed(2)}` : null,
+    `Total: Rs. ${order.totalPrice?.toFixed(2) || "0.00"}`,
+    "",
+    "We are preparing your order and will notify you once it ships.",
+    "",
+    `- ${APP_NAME} Team`
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+export const sendOrderConfirmationEmail = async ({ to, name, order }) => {
+  const subject = `Order Confirmed - ${order.orderNumber}`;
+  return sendMail({
+    kind: "order-confirmation",
     to,
     subject,
-    html
+    text: buildOrderEmailText(order, name),
+    html: buildOrderEmailHtml(order, name)
+  });
+};
+
+export const sendAdminOrderNotificationEmail = async ({ order, customerName, customerEmail, isGuest = false }) => {
+  const recipients = parseRecipients(process.env.ADMIN_EMAIL || process.env.ADMIN_EMAILS || process.env.EMAIL_ALERT_TO);
+  if (!recipients.length) {
+    logEmailSkip("admin-order-notification", {
+      subject: `New order ${order.orderNumber}`,
+      reason: "ADMIN_EMAIL / ADMIN_EMAILS / EMAIL_ALERT_TO is missing"
+    });
+    return { skipped: true };
+  }
+
+  const subject = `New Order Received - ${order.orderNumber}`;
+  const text = [
+    `New order received`,
+    "",
+    `Order ID: ${order.orderNumber}`,
+    `Customer: ${customerName}`,
+    `Email: ${customerEmail}`,
+    `Guest Order: ${isGuest ? "Yes" : "No"}`,
+    `Payment Method: ${order.paymentMethod || "COD"}`,
+    `Total: Rs. ${order.totalPrice?.toFixed(2) || "0.00"}`,
+    `Items: ${order.orderItems?.map((item) => `${item.name || "Item"} x ${item.quantity}`).join(", ")}`,
+    "",
+    `- ${APP_NAME}`
+  ].join("\n");
+
+  return sendMail({
+    kind: "admin-order-notification",
+    to: recipients,
+    subject,
+    text
+  });
+};
+
+export const sendContactNotificationEmail = async ({ name, email, message }) => {
+  const recipients = parseRecipients(process.env.ADMIN_EMAIL || process.env.ADMIN_EMAILS || process.env.EMAIL_ALERT_TO);
+  if (!recipients.length) {
+    logEmailSkip("contact-notification", {
+      subject: `Contact form submission from ${name}`,
+      reason: "ADMIN_EMAIL / ADMIN_EMAILS / EMAIL_ALERT_TO is missing"
+    });
+    return { skipped: true };
+  }
+
+  const subject = `Contact Form Submission - ${name}`;
+  const text = [
+    `New contact form submission`,
+    "",
+    `Name: ${name}`,
+    `Email: ${email}`,
+    "",
+    "Message:",
+    message,
+    "",
+    `- ${APP_NAME}`
+  ].join("\n");
+
+  return sendMail({
+    kind: "contact-notification",
+    to: recipients,
+    subject,
+    text,
+    replyTo: email
+  });
+};
+
+export const sendContactAutoReplyEmail = async ({ to, name }) => {
+  const subject = `${APP_NAME} Received Your Message`;
+  const text = [
+    `Hi ${name},`,
+    "",
+    "Thanks for reaching out. We received your message and will reply shortly.",
+    "",
+    `- ${APP_NAME} Team`
+  ].join("\n");
+
+  return sendMail({
+    kind: "contact-autoreply",
+    to,
+    subject,
+    text
   });
 };
 
 export const sendReviewStatusEmail = async ({ to, name, status, productName }) => {
-  const subject = status === "approved"
-    ? "Your Review Has Been Approved!"
-    : "Your Review Has Been Rejected";
+  const subject = status === "approved" ? "Your Review Has Been Approved!" : "Your Review Has Been Rejected";
 
-  const text = status === "approved"
-    ? [
-        `Hi ${name},`,
-        "",
-        `Thank you for reviewing "${productName}".`,
-        "Your review has been approved and is now visible on our website.",
-        "",
-        "Thank you for your feedback!",
-        "- Elegant Home Decor Team"
-      ].join("\n")
-    : [
-        `Hi ${name},`,
-        "",
-        `Thank you for reviewing "${productName}".`,
-        "Unfortunately, your review did not meet our guidelines and has been rejected.",
-        "If you have any questions, please contact our support team.",
-        "",
-        "- Elegant Home Decor Team"
-      ].join("\n");
+  const text =
+    status === "approved"
+      ? [
+          `Hi ${name},`,
+          "",
+          `Thank you for reviewing "${productName}".`,
+          "Your review has been approved and is now visible on our website.",
+          "",
+          "Thank you for your feedback!",
+          `- ${APP_NAME} Team`
+        ].join("\n")
+      : [
+          `Hi ${name},`,
+          "",
+          `Thank you for reviewing "${productName}".`,
+          "Unfortunately, your review did not meet our guidelines and has been rejected.",
+          "If you have any questions, please contact our support team.",
+          "",
+          `- ${APP_NAME} Team`
+        ].join("\n");
 
-  await sendMail({ to, subject, text });
+  return sendMail({ kind: "review-status", to, subject, text });
 };
 
 export const sendReturnStatusEmail = async ({ to, name, returnId, status }) => {
   const subject = `Return ${returnId} - ${status}`;
   const statusMessages = {
-    "Requested": "Your return request has been submitted and is pending review.",
-    "Approved": "Your return request has been approved. We will schedule a pickup shortly.",
-    "Rejected": "Unfortunately, your return request could not be approved. Please contact support for more details.",
+    Requested: "Your return request has been submitted and is pending review.",
+    Approved: "Your return request has been approved. We will schedule a pickup shortly.",
+    Rejected: "Unfortunately, your return request could not be approved. Please contact support for more details.",
     "Pickup Scheduled": "A pickup has been scheduled for your return. Please keep the items ready.",
     "Refund Initiated": "Your refund has been initiated. It will reflect in your account within 5-7 business days."
   };
@@ -236,39 +527,37 @@ export const sendReturnStatusEmail = async ({ to, name, returnId, status }) => {
     statusMessages[status] || `Your return status has been updated to "${status}".`,
     "",
     "Thank you for your patience.",
-    "- Elegant Home Decor Team"
+    `- ${APP_NAME} Team`
   ].join("\n");
 
-  await sendMail({ to, subject, text });
+  return sendMail({ kind: "return-status", to, subject, text });
 };
 
-export const sendPasswordResetEmail = async ({ to, name, resetLink }) => {
-  const hasGmailConfig = process.env.EMAIL_USER && process.env.EMAIL_PASS;
-  if (!hasGmailConfig) {
-    console.log("Password reset email skipped (no EMAIL_USER / EMAIL_PASS)", { to });
-    return;
+export const sendPasswordResetEmail = async ({ to, name, resetToken }) => {
+  const frontendUrl = getFrontendUrl();
+  if (!frontendUrl) {
+    throw new Error("CLIENT_URL or FRONTEND_URL is required to build password reset links");
   }
 
-  const transporter = getGmailTransporter();
-
+  const resetLink = `${frontendUrl.replace(/\/$/, "")}/reset-password/${resetToken}`;
   const subject = "Password Reset - Elegant Home Decor";
   const text = [
     `Hi ${name},`,
     "",
     "You requested a password reset for your Elegant Home Decor account.",
     "",
-    `Click the link below to reset your password:`,
+    "Click the link below to reset your password:",
     resetLink,
     "",
     "This link will expire in 15 minutes.",
     "",
     "If you did not request this, please ignore this email.",
     "",
-    "- Elegant Home Decor Team"
+    `- ${APP_NAME} Team`
   ].join("\n");
 
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
+  return sendMail({
+    kind: "password-reset",
     to,
     subject,
     text
@@ -276,26 +565,34 @@ export const sendPasswordResetEmail = async ({ to, name, resetLink }) => {
 };
 
 export const sendLowStockAlert = async ({ productName, stock, threshold }) => {
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
-  if (!adminEmail) {
-    console.log("Low stock alert skipped (no ADMIN_EMAIL / EMAIL_USER)");
-    return;
+  const recipients = parseRecipients(process.env.ADMIN_EMAIL || process.env.ADMIN_EMAILS || process.env.EMAIL_ALERT_TO);
+  if (!recipients.length) {
+    logEmailSkip("low-stock-alert", {
+      subject: `Low Stock Alert: ${productName}`,
+      reason: "ADMIN_EMAIL / ADMIN_EMAILS / EMAIL_ALERT_TO is missing"
+    });
+    return { skipped: true };
   }
 
   const subject = `Low Stock Alert: ${productName}`;
   const text = [
-    `Low Stock Alert`,
-    ``,
+    "Low Stock Alert",
+    "",
     `Product: ${productName}`,
     `Current Stock: ${stock}`,
     `Threshold: ${threshold}`,
-    ``,
-    `This product is running low on stock. Please restock soon.`,
-    ``,
-    `- Elegant Home Decor`,
+    "",
+    "This product is running low on stock. Please restock soon.",
+    "",
+    `- ${APP_NAME}`
   ].join("\n");
 
-  await sendMail({ to: adminEmail, subject, text });
+  return sendMail({
+    kind: "low-stock-alert",
+    to: recipients,
+    subject,
+    text
+  });
 };
 
 export const sendRefundEmail = async ({ to, name, returnId, amount, method }) => {
@@ -310,8 +607,8 @@ export const sendRefundEmail = async ({ to, name, returnId, amount, method }) =>
     "Please allow 5-7 business days for the amount to reflect in your account.",
     "",
     "Thank you for shopping with us.",
-    "- Elegant Home Decor Team"
+    `- ${APP_NAME} Team`
   ].join("\n");
 
-  await sendMail({ to, subject, text });
+  return sendMail({ kind: "refund", to, subject, text });
 };

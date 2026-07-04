@@ -59,7 +59,12 @@ export const createReturn = asyncHandler(async (req, res) => {
     name: req.user.name,
     returnId: returnReq.returnId,
     status: "Requested"
-  }).catch(() => {});
+  }).catch((emailErr) => {
+    console.error("[email] return request notification failed:", {
+      message: emailErr.message,
+      stack: emailErr.stack
+    });
+  });
 
   res.status(201).json(returnReq);
 });
@@ -211,7 +216,12 @@ export const updateReturnStatus = asyncHandler(async (req, res) => {
       name: returnReq.user.name,
       returnId: returnReq.returnId,
       status
-    }).catch(() => {});
+    }).catch((emailErr) => {
+      console.error("[email] return status notification failed:", {
+        message: emailErr.message,
+        stack: emailErr.stack
+      });
+    });
   }
 
   res.json(returnReq);
@@ -282,7 +292,12 @@ export const initiateRefund = asyncHandler(async (req, res) => {
     name: returnReq.user.name,
     returnId: returnReq.returnId,
     status: "Refund Initiated"
-  }).catch(() => {});
+  }).catch((emailErr) => {
+    console.error("[email] refund initiation notification failed:", {
+      message: emailErr.message,
+      stack: emailErr.stack
+    });
+  });
 
   res.json({ returnReq, refund });
 });
@@ -315,7 +330,12 @@ export const completeRefund = asyncHandler(async (req, res) => {
     returnId: returnReq.returnId,
     amount: refund.refundAmount,
     method: refund.refundMethod
-  }).catch(() => {});
+  }).catch((emailErr) => {
+    console.error("[email] refund completion notification failed:", {
+      message: emailErr.message,
+      stack: emailErr.stack
+    });
+  });
 
   res.json({ refund, returnReq });
 });

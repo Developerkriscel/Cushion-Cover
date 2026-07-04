@@ -117,7 +117,12 @@ export const approveReview = asyncHandler(async (req, res) => {
       name: review.user.name,
       status: "approved",
       productName: (await Product.findById(review.product).select("name"))?.name || "Product"
-    }).catch(() => {});
+    }).catch((emailErr) => {
+      console.error("[email] review approval notification failed:", {
+        message: emailErr.message,
+        stack: emailErr.stack
+      });
+    });
   }
 
   res.json({ message: "Review approved successfully", review });
@@ -140,7 +145,12 @@ export const rejectReview = asyncHandler(async (req, res) => {
       name: review.user.name,
       status: "rejected",
       productName: (await Product.findById(review.product).select("name"))?.name || "Product"
-    }).catch(() => {});
+    }).catch((emailErr) => {
+      console.error("[email] review rejection notification failed:", {
+        message: emailErr.message,
+        stack: emailErr.stack
+      });
+    });
   }
 
   res.json({ message: "Review rejected", review });

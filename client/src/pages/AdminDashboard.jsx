@@ -59,6 +59,15 @@ export default function AdminDashboard() {
     api.get("/admin/festive/all").then(({ data }) => setFestiveThemes(data)).catch(() => {});
   };
 
+  const sendTestEmail = async () => {
+    try {
+      const { data } = await api.post("/admin/email/test");
+      toast.success(data.message || "Test email sent");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Unable to send test email");
+    }
+  };
+
   useEffect(() => {
     loadAdminData();
   }, []);
@@ -73,7 +82,13 @@ export default function AdminDashboard() {
         <div className="dashboard-content">
           {active === "overview" && (
             <section className="dashboard-panel">
-              <h1>Dashboard Overview</h1>
+              <div className="panel-header panel-header-row">
+                <h1>Dashboard Overview</h1>
+                <button className="button secondary" type="button" onClick={sendTestEmail}>
+                  <MessageSquare size={16} />
+                  Send Test Email
+                </button>
+              </div>
               <div className="stat-grid">
                 <Stat label="Total Sales" value={formatCurrency(stats?.totalSales || 0)} />
                 <Stat label="Orders" value={stats?.totalOrders || 0} />

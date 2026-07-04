@@ -76,8 +76,15 @@ export const forgotPassword = asyncHandler(async (req, res) => {
   user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
   await user.save();
 
-  const resetLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
-  await sendPasswordResetEmail({ to: user.email, name: user.name, resetLink });
+  try {
+    await sendPasswordResetEmail({ to: user.email, name: user.name, resetToken });
+  } catch (emailErr) {
+    console.error("[email] password reset email failed:", {
+      message: emailErr.message,
+      code: emailErr.code,
+      stack: emailErr.stack
+    });
+  }
 
   res.json({ message: "Password reset link sent to your email" });
 });

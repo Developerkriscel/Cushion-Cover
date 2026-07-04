@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Newsletter from "../models/Newsletter.js";
 import Banner from "../models/Banner.js";
+import { sendContactAutoReplyEmail, sendContactNotificationEmail } from "../utils/email.js";
 
 export const subscribeNewsletter = asyncHandler(async (req, res) => {
   const exists = await Newsletter.findOne({ email: req.body.email });
@@ -10,7 +11,14 @@ export const subscribeNewsletter = asyncHandler(async (req, res) => {
 });
 
 export const submitContact = asyncHandler(async (req, res) => {
-  console.log("Contact form submission", req.body);
+  const { name, email, message } = req.body;
+  console.log("[contact] submission received", { name, email, messageLength: message?.length || 0 });
+
+  await Promise.allSettled([
+    sendContactNotificationEmail({ name, email, message }),
+    sendContactAutoReplyEmail({ to: email, name })
+  ]);
+
   res.status(201).json({ message: "Thanks for reaching out. Our team will reply shortly." });
 });
 

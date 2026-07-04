@@ -5,6 +5,7 @@ import User from "../models/User.js";
 import Category from "../models/Category.js";
 import cloudinary from "../config/cloudinary.js";
 import { toSlug } from "../utils/slug.js";
+import { sendTestEmail, getEmailConfigStatus } from "../utils/email.js";
 
 const uploadBuffer = (file) =>
   new Promise((resolve, reject) => {
@@ -88,6 +89,35 @@ export const getAllUsers = asyncHandler(async (_req, res) => {
 
 export const getAdminProducts = asyncHandler(async (_req, res) => {
   res.json(await Product.find().populate("category", "name slug").sort({ createdAt: -1 }));
+});
+
+export const sendEmailTest = asyncHandler(async (req, res) => {
+  const recipient = req.user?.email || process.env.ADMIN_EMAIL || process.env.EMAIL_USER || process.env.SMTP_USER;
+  if (!recipient) {
+    res.status(400);
+    throw new Error("No recipient available for the test email");
+  }
+
+  await sendTestEmail({ to: recipient, label: "Admin Email Test" });
+  res.json({ message: `Test email sent to ${recipient}` });
+});
+
+export const getEmailConfig = asyncHandler(async (_req, res) => {
+  const config = getEmailConfigStatus();
+  res.json({
+    ...config,
+    envVars: {
+      SMTP_HOST: process.env.SMTP_HOST ? "✓ set" : "not set",
+      SMTP_USER: process.env.SMTP_USER ? "✓ set" : "not set",
+      SMTP_PORT: process.env.SMTP_PORT || "587 (default)",
+      EMAIL_USER: process.env.EMAIL_USER ? "✓ set" : "not set",
+      EMAIL_PASS: process.env.EMAIL_PASS ? "✓ set (hidden)" : "not set",
+      MAIL_FROM: process.env.MAIL_FROM || "not set",
+      ADMIN_EMAIL: process.env.ADMIN_EMAIL || "not set",
+      CLIENT_URL: process.env.CLIENT_URL || "not set",
+      LOW_STOCK_THRESHOLD: process.env.LOW_STOCK_THRESHOLD || "5 (default)"
+    }
+  });
 });
 
 export const createAdminProduct = asyncHandler(async (req, res) => {
