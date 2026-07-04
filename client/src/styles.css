@@ -131,7 +131,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: clamp(16px, 2vw, 30px);
+  gap: clamp(12px, 1.6vw, 24px);
   padding-block: 8px;
 }
 
@@ -174,17 +174,19 @@ img {
 }
 
 .nav-menu {
-  flex: 1 1 auto;
+  flex: 1 1 0;
   justify-content: center;
-  gap: clamp(12px, 1.5vw, 20px);
+  gap: clamp(10px, 1.2vw, 18px);
   font-size: 0.95rem;
   color: var(--muted);
   min-width: 0;
   flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .nav-menu a {
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .nav-menu a.active,
@@ -204,8 +206,9 @@ img {
 }
 
 .nav-search {
-  flex: 0 0 clamp(240px, 20vw, 280px);
-  width: clamp(240px, 20vw, 280px);
+  flex: 0 0 clamp(220px, 18vw, 270px);
+  width: clamp(220px, 18vw, 270px);
+  min-width: 0;
 }
 
 .nav-search input,
@@ -233,7 +236,7 @@ textarea {
 .nav-actions {
   flex: 0 0 auto;
   gap: 10px;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .icon-button,
