@@ -43,6 +43,25 @@ const resolveTransportConfig = () => {
   const smtpPass = normalizePassword(process.env.SMTP_PASS);
   const emailUser = trimValue(process.env.EMAIL_USER);
   const emailPass = normalizePassword(process.env.EMAIL_PASS);
+  const googleClientId = trimValue(process.env.GOOGLE_CLIENT_ID);
+  const googleClientSecret = trimValue(process.env.GOOGLE_CLIENT_SECRET);
+  const googleRefreshToken = trimValue(process.env.GOOGLE_REFRESH_TOKEN);
+
+  const baseGmailConfig = (authConfig) => {
+    const port = Number(process.env.EMAIL_SMTP_PORT) || 465;
+    const secure = process.env.EMAIL_SMTP_PORT ? parseBool(process.env.EMAIL_SECURE, port === 465) : true;
+    return {
+      host: "smtp.gmail.com",
+      port,
+      secure,
+      auth: authConfig,
+      family: 4,
+      requireTLS: !secure,
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000
+    };
+  };
 
   if (smtpHost) {
     if (!smtpUser || !smtpPass) {
@@ -66,29 +85,29 @@ const resolveTransportConfig = () => {
     };
   }
 
-  if (emailUser && emailPass) {
-    const port = Number(process.env.EMAIL_SMTP_PORT) || 465;
-    const secure = process.env.EMAIL_SMTP_PORT ? parseBool(process.env.EMAIL_SECURE, port === 465) : true;
+  if (googleClientId && googleClientSecret && googleRefreshToken && emailUser) {
+    return {
+      mode: "gmail-oauth2",
+      config: baseGmailConfig({
+        type: "OAuth2",
+        user: emailUser,
+        clientId: googleClientId,
+        clientSecret: googleClientSecret,
+        refreshToken: googleRefreshToken
+      })
+    };
+  }
 
+  if (emailUser && emailPass) {
     return {
       mode: "gmail-app-password",
-      config: {
-        host: "smtp.gmail.com",
-        port,
-        secure,
-        auth: { user: emailUser, pass: emailPass },
-        family: 4,
-        requireTLS: !secure,
-        connectionTimeout: 10000,
-        greetingTimeout: 10000,
-        socketTimeout: 15000
-      }
+      config: baseGmailConfig({ user: emailUser, pass: emailPass })
     };
   }
 
   return {
     error:
-      "No email credentials found. Set SMTP_HOST/SMTP_USER/SMTP_PASS for a generic SMTP provider, or EMAIL_USER/EMAIL_PASS for Gmail App Password auth."
+      "No email credentials found. Set GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET + GOOGLE_REFRESH_TOKEN + EMAIL_USER for OAuth2, EMAIL_USER + EMAIL_PASS for App Password, or SMTP_HOST + SMTP_USER + SMTP_PASS for generic SMTP."
   };
 };
 
@@ -104,7 +123,13 @@ const createTransporter = () => {
   }
 
   const { host, port, secure, auth } = transport.config;
-  console.log(`[email] creating transporter: mode=${transport.mode} host=${host} port=${port} secure=${secure} user=${auth?.user}`);
+  const authType = auth?.type || "password";
+  const refreshTokenSnippet = auth?.refreshToken ? `${auth.refreshToken.substring(0, 8)}...` : null;
+  const logAuth = authType === "OAuth2"
+    ? `type=OAuth2 clientId=${auth?.clientId} refreshToken=${refreshTokenSnippet}`
+    : `user=${auth?.user}`;
+
+  console.log(`[email] creating transporter: mode=${transport.mode} host=${host} port=${port} secure=${secure} ${logAuth}`);
 
   const transporter = nodemailer.createTransport(transport.config);
 
@@ -114,6 +139,9 @@ const createTransporter = () => {
     }
   }).catch((err) => {
     console.warn(`[email] transporter verify() failed (will retry on next send): code=${err.code} message=${err.message}`);
+    if (authType === "OAuth2" && (err.code === "EAUTH" || err.response?.includes("invalid_grant"))) {
+      console.error("[email] OAuth2 token may be expired or invalid. Generate a new refresh token at https://developers.google.com/oauthplayground");
+    }
   });
 
   return { transporter, mode: transport.mode, error: null };
@@ -188,8 +216,13 @@ const sendMailWithRetry = async (mailOptions, kind, attempt = 1) => {
       return sendMailWithRetry(mailOptions, kind, 2);
     }
 
-    if (error.code === "EAUTH") {
+    if (error.code === "EAUTH" || error.response?.includes("invalid_grant")) {
+      console.error(`[email] ${mode} auth failed — resetting transporter`);
       resetTransporter();
+    }
+
+    if (mode === "gmail-oauth2" && error.response?.includes("invalid_grant")) {
+      console.error("[email] OAuth2 refresh token is invalid or revoked. Generate a new one at https://developers.google.com/oauthplayground");
     }
 
     return { sent: false, error: error.message, code: error.code };
@@ -198,12 +231,19 @@ const sendMailWithRetry = async (mailOptions, kind, attempt = 1) => {
 
 export const getEmailConfigStatus = () => {
   const transport = resolveTransportConfig();
+  const auth = transport.config?.auth || {};
   return {
     configured: !transport.error,
     mode: transport.mode || transporterMode || null,
     port: transport.config?.port || null,
     secure: transport.config?.secure ?? null,
     host: transport.config?.host || null,
+    authType: auth.type || "password",
+    oauth2: auth.type === "OAuth2" ? {
+      clientId: auth.clientId ? `${auth.clientId.substring(0, 20)}...` : null,
+      hasRefreshToken: !!auth.refreshToken,
+      refreshTokenPrefix: auth.refreshToken ? auth.refreshToken.substring(0, 8) : null
+    } : null,
     dnsOrder: dns.setDefaultResultOrder ? "ipv4first" : "default",
     error: transport.error || null,
     from: resolveFrom(),
