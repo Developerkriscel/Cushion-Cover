@@ -31,17 +31,15 @@ export default function TopBanner() {
 
   const items = loaded && announcements.length > 0 ? announcements.map((a) => a.text) : [FALLBACK_TEXT];
 
-  if (items.length === 1) {
-    return <div className="top-strip">{items[0]}</div>;
-  }
+  const marqueeItems = items.length === 1 ? [items[0], items[0]] : [...items, ...items];
 
   return (
     <div className="top-strip announcement-bar">
       <div className="announcement-marquee">
         <div className="announcement-marquee-track">
-          {[...items, ...items].map((text, i) => (
+          {marqueeItems.map((text, i) => (
             <span key={i} className="announcement-item">
-              {i > 0 && <span className="announcement-divider">•</span>}
+              {i > 0 && items.length > 1 && <span className="announcement-divider">•</span>}
               {text}
             </span>
           ))}
