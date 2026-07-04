@@ -110,31 +110,28 @@ img {
   overflow: hidden;
   width: 100%;
   white-space: nowrap;
-  padding: 0 16px;
   text-align: left;
-  display: flex;
-  align-items: center;
 }
 
 .announcement-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 18s linear infinite;
+  animation: marquee-scroll 15s linear infinite;
   will-change: transform;
 }
 
-.announcement-track span {
-  padding: 9px 4px;
-  font-size: 0.88rem;
+.announcement-track > span {
   flex-shrink: 0;
+  padding-right: 16px;
+  font-size: 0.88rem;
 }
 
 @keyframes marquee-scroll {
   from {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
   to {
-    transform: translateX(-33.33%);
+    transform: translateX(-50%);
   }
 }
 

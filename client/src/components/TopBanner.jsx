@@ -30,13 +30,13 @@ export default function TopBanner() {
   }
 
   const items = loaded && announcements.length > 0 ? announcements.map((a) => a.text) : [FALLBACK_TEXT];
+  const displayText = items.join(" • ");
 
   return (
     <div className="top-strip announcement-bar">
       <div className="announcement-track">
-        {[...items, ...items, ...items].map((text, i) => (
-          <span key={i}>{text}</span>
-        ))}
+        <span>{displayText}</span>
+        <span>{displayText}</span>
       </div>
     </div>
   );
