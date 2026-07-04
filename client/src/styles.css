@@ -523,7 +523,7 @@ textarea {
 
 .hero {
   position: relative;
-  min-height: 80vh;
+  min-height: 60vh;
   display: grid;
   align-items: start;
   background:
@@ -553,7 +553,7 @@ textarea {
   grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
   gap: clamp(36px, 7vw, 92px);
   align-items: center;
-  padding: 12px 0 80px;
+  padding: 0 0 48px;
 }
 
 .hero-copy {
@@ -626,9 +626,9 @@ textarea {
 .hero-collage-cards {
   position: relative;
   width: 100%;
-  max-width: 460px;
+  max-width: 400px;
   margin: 0 auto;
-  aspect-ratio: 5 / 8;
+  aspect-ratio: 3 / 4;
   align-self: center;
 }
 
@@ -2970,11 +2970,11 @@ th {
   .hero-content {
     grid-template-columns: 1fr;
     gap: 30px;
-    padding: 10px 0 60px;
+    padding: 0 0 36px;
   }
 
   .hero-collage-cards {
-    max-width: 340px;
+    max-width: 300px;
   }
 
   .hero-card-inner {
@@ -3076,11 +3076,11 @@ th {
   }
 
   .hero-content {
-    padding: 8px 0 48px;
+    padding: 0 0 32px;
   }
 
   .hero-collage-cards {
-    max-width: 280px;
+    max-width: 260px;
   }
 
   .hero-collage-card {
