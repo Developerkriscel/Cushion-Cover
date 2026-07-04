@@ -10,6 +10,7 @@ import HeroSection from "../components/HeroSection.jsx";
 import CategoryCard from "../components/CategoryCard.jsx";
 import ProductGrid from "../components/ProductGrid.jsx";
 import NetflixCarousel from "../components/NetflixCarousel.jsx";
+import BestSellerCarousel from "../components/BestSellerCarousel.jsx";
 import TestimonialCard from "../components/TestimonialCard.jsx";
 import MagneticButton from "../components/MagneticButton.jsx";
 
@@ -24,7 +25,7 @@ export default function Home() {
   const [testimonialInView, setTestimonialInView] = useState(false);
 
   useEffect(() => {
-    Promise.all([api.get("/categories"), api.get("/products?limit=12")])
+    Promise.all([api.get("/categories"), api.get("/products?limit=20")])
       .then(([categoryRes, productRes]) => {
         setCategories(categoryRes.data.length ? categoryRes.data : fallbackCategories);
         setProducts(productRes.data.products?.length ? productRes.data.products : fallbackProducts);
@@ -65,7 +66,7 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const bestSellers = products.filter((product) => product.bestSeller).slice(0, 8);
+  const bestSellers = products.filter((product) => product.bestSeller);
   const newArrivals = [...products].slice(0, 8);
 
   return (
@@ -87,10 +88,10 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section className="band">
+      <section className="band best-seller-band">
         <div className="container section">
-          <NetflixCarousel
-            products={bestSellers.length ? bestSellers : products.slice(0, 8)}
+          <BestSellerCarousel
+            products={bestSellers.length ? bestSellers : products}
             title="Customer-Loved Finishing Touches"
             eyebrow="Best Sellers"
           />
