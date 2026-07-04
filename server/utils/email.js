@@ -57,9 +57,17 @@ const resolveTransportConfig = () => {
   const googleClientSecret = trimValue(process.env.GOOGLE_CLIENT_SECRET);
   const googleRefreshToken = trimValue(process.env.GOOGLE_REFRESH_TOKEN);
 
+  const safePort = (raw) => {
+    const n = parseInt(raw, 10);
+    if (isNaN(n) || n < 1 || n > 65535) return null;
+    return n;
+  };
+
   const baseGmailConfig = (authConfig) => {
-    const port = Number(process.env.EMAIL_SMTP_PORT) || 465;
-    const secure = process.env.EMAIL_SMTP_PORT ? parseBool(process.env.EMAIL_SECURE, port === 465) : true;
+    const port = safePort(process.env.EMAIL_SMTP_PORT) || 587;
+    const secure = process.env.EMAIL_SMTP_PORT
+      ? parseBool(process.env.EMAIL_SECURE, port === 465)
+      : false;
 
     const host = GMAIL_IPV4 || "smtp.gmail.com";
 
@@ -69,11 +77,11 @@ const resolveTransportConfig = () => {
       secure,
       auth: authConfig,
       family: 4,
-      requireTLS: !secure,
+      requireTLS: true,
       tls: GMAIL_IPV4 ? { servername: "smtp.gmail.com" } : undefined,
-      connectionTimeout: 15000,
-      greetingTimeout: 15000,
-      socketTimeout: 20000
+      connectionTimeout: 20000,
+      greetingTimeout: 20000,
+      socketTimeout: 30000
     };
   };
 
@@ -88,13 +96,13 @@ const resolveTransportConfig = () => {
       mode: "smtp",
       config: {
         host: smtpHost,
-        port: Number(process.env.SMTP_PORT) || 587,
+        port: safePort(process.env.SMTP_PORT) || 587,
         secure: parseBool(process.env.SMTP_SECURE, false),
         auth: { user: smtpUser, pass: smtpPass },
         family: 4,
-        connectionTimeout: 10000,
-        greetingTimeout: 10000,
-        socketTimeout: 15000
+        connectionTimeout: 20000,
+        greetingTimeout: 20000,
+        socketTimeout: 30000
       }
     };
   }
