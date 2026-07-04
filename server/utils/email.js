@@ -10,13 +10,47 @@ if (typeof dns.setDefaultResultOrder === "function") {
 
 let GMAIL_IPV4 = null;
 
-try {
-  const result = dns.lookupSync("smtp.gmail.com", { family: 4 });
-  GMAIL_IPV4 = result.address;
-  console.log(`[email] pre-resolved smtp.gmail.com → ${GMAIL_IPV4}`);
-} catch (err) {
-  console.warn(`[email] could not pre-resolve smtp.gmail.com IPv4, will use hostname (${err.code})`);
-}
+const resolveGmailIpv4Sync = () => {
+  try {
+    const result = dns.lookupSync("smtp.gmail.com", { family: 4, hints: dns.ADDRCONFIG });
+    if (result?.address) {
+      GMAIL_IPV4 = result.address;
+      console.log(`[email] pre-resolved smtp.gmail.com → ${GMAIL_IPV4}`);
+      return;
+    }
+  } catch {
+    // options object API failed, try positional API
+  }
+  try {
+    const address = dns.lookupSync("smtp.gmail.com", 4);
+    if (address) {
+      GMAIL_IPV4 = address;
+      console.log(`[email] pre-resolved smtp.gmail.com (positional) → ${GMAIL_IPV4}`);
+      return;
+    }
+  } catch (err) {
+    console.warn(`[email] DNS pre-resolution failed: ${err.code || err.message || "unknown"}`);
+  }
+};
+
+const resolveGmailIpv4Async = async () => {
+  if (GMAIL_IPV4) return;
+  try {
+    const addresses = await dns.promises.resolve4("smtp.gmail.com");
+    if (addresses?.length) {
+      GMAIL_IPV4 = addresses[0];
+      console.log(`[email] async resolved smtp.gmail.com → ${GMAIL_IPV4}`);
+    }
+  } catch (err) {
+    console.warn(`[email] async DNS failed: ${err.code}`);
+    if (!GMAIL_IPV4) {
+      GMAIL_IPV4 = "142.250.31.109";
+      console.log(`[email] using fallback IP: ${GMAIL_IPV4}`);
+    }
+  }
+};
+
+resolveGmailIpv4Sync();
 
 const APP_NAME = "Elegant Home Decor";
 const DEFAULT_FROM_NAME = process.env.MAIL_FROM_NAME || APP_NAME;
@@ -65,9 +99,9 @@ const resolveTransportConfig = () => {
 
   const baseGmailConfig = (authConfig) => {
     const port = safePort(process.env.EMAIL_SMTP_PORT) || 587;
-    const secure = process.env.EMAIL_SMTP_PORT
-      ? parseBool(process.env.EMAIL_SECURE, port === 465)
-      : false;
+    const secure = process.env.EMAIL_SECURE !== undefined
+      ? parseBool(process.env.EMAIL_SECURE, false)
+      : port === 465;
 
     const host = GMAIL_IPV4 || "smtp.gmail.com";
 
@@ -77,7 +111,7 @@ const resolveTransportConfig = () => {
       secure,
       auth: authConfig,
       family: 4,
-      requireTLS: true,
+      requireTLS: !secure,
       tls: GMAIL_IPV4 ? { servername: "smtp.gmail.com" } : undefined,
       connectionTimeout: 20000,
       greetingTimeout: 20000,
@@ -138,11 +172,13 @@ let transporterMode = null;
 let lastVerifyAttempt = 0;
 const VERIFY_COOLDOWN_MS = 60000;
 
-const createTransporter = () => {
+const createTransporter = async () => {
   const transport = resolveTransportConfig();
   if (transport.error) {
     return { transporter: null, mode: null, error: transport.error };
   }
+
+  await resolveGmailIpv4Async();
 
   const { host, port, secure, auth } = transport.config;
   const authType = auth?.type || "password";
@@ -170,11 +206,11 @@ const createTransporter = () => {
   return { transporter, mode: transport.mode, error: null };
 };
 
-const getTransporter = () => {
+const getTransporter = async () => {
   const now = Date.now();
 
   if (!transporterInstance) {
-    const result = createTransporter();
+    const result = await createTransporter();
     transporterInstance = result.transporter;
     transporterMode = result.mode;
     lastVerifyAttempt = now;
@@ -189,7 +225,7 @@ const resetTransporter = () => {
 };
 
 const sendMailWithRetry = async (mailOptions, kind, attempt = 1) => {
-  const { transporter, mode } = getTransporter();
+  const { transporter, mode } = await getTransporter();
 
   if (!transporter) {
     return { skipped: true, reason: getEmailConfigStatus().error || "transporter not available" };
@@ -233,7 +269,7 @@ const sendMailWithRetry = async (mailOptions, kind, attempt = 1) => {
       await new Promise((r) => setTimeout(r, delay));
 
       if (!transporterInstance) {
-        const result = createTransporter();
+        const result = await createTransporter();
         transporterInstance = result.transporter;
         transporterMode = result.mode;
       }
