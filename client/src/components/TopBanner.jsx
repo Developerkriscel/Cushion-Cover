@@ -37,6 +37,7 @@ export default function TopBanner() {
       <div className="announcement-track">
         <span>{displayText}</span>
         <span>{displayText}</span>
+        <span>{displayText}</span>
       </div>
     </div>
   );
