@@ -8,6 +8,16 @@ if (typeof dns.setDefaultResultOrder === "function") {
   console.log("[email] dns.setDefaultResultOrder not available (Node < 17)");
 }
 
+let GMAIL_IPV4 = null;
+
+try {
+  const result = dns.lookupSync("smtp.gmail.com", { family: 4 });
+  GMAIL_IPV4 = result.address;
+  console.log(`[email] pre-resolved smtp.gmail.com → ${GMAIL_IPV4}`);
+} catch (err) {
+  console.warn(`[email] could not pre-resolve smtp.gmail.com IPv4, will use hostname (${err.code})`);
+}
+
 const APP_NAME = "Elegant Home Decor";
 const DEFAULT_FROM_NAME = process.env.MAIL_FROM_NAME || APP_NAME;
 const DEFAULT_FROM_ADDRESS = process.env.MAIL_FROM || process.env.SMTP_FROM || process.env.EMAIL_USER || process.env.SMTP_USER;
@@ -50,16 +60,20 @@ const resolveTransportConfig = () => {
   const baseGmailConfig = (authConfig) => {
     const port = Number(process.env.EMAIL_SMTP_PORT) || 465;
     const secure = process.env.EMAIL_SMTP_PORT ? parseBool(process.env.EMAIL_SECURE, port === 465) : true;
+
+    const host = GMAIL_IPV4 || "smtp.gmail.com";
+
     return {
-      host: "smtp.gmail.com",
+      host,
       port,
       secure,
       auth: authConfig,
       family: 4,
       requireTLS: !secure,
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000
+      tls: GMAIL_IPV4 ? { servername: "smtp.gmail.com" } : undefined,
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 20000
     };
   };
 
@@ -128,8 +142,9 @@ const createTransporter = () => {
   const logAuth = authType === "OAuth2"
     ? `type=OAuth2 clientId=${auth?.clientId} refreshToken=${refreshTokenSnippet}`
     : `user=${auth?.user}`;
+  const dnsInfo = GMAIL_IPV4 ? `ipv4=${GMAIL_IPV4}` : "hostname=smtp.gmail.com";
 
-  console.log(`[email] creating transporter: mode=${transport.mode} host=${host} port=${port} secure=${secure} ${logAuth}`);
+  console.log(`[email] creating transporter: mode=${transport.mode} ${dnsInfo} port=${port} secure=${secure} ${logAuth}`);
 
   const transporter = nodemailer.createTransport(transport.config);
 
@@ -195,15 +210,17 @@ const sendMailWithRetry = async (mailOptions, kind, attempt = 1) => {
       port: error.port
     };
 
-    console.error(`[email] failed ${kind} (attempt ${attempt}) mode=${mode}`, {
+    const isIpv6 = error.address?.includes(":") && GMAIL_IPV4;
+    console.error(`[email] failed ${kind} (attempt ${attempt}) mode=${mode}${isIpv6 ? " (IPv6!)" : ""}`, {
       to: mailOptions.to,
       subject: mailOptions.subject,
       error: error.message,
+      resolvedIpv4: GMAIL_IPV4,
       ...errInfo
     });
 
     if (attempt === 1) {
-      const delay = error.code === "ENETUNREACH" ? 2000 : 1000;
+      const delay = error.code === "ENETUNREACH" || error.code === "ETIMEDOUT" ? 2000 : 1000;
       console.log(`[email] retrying ${kind} in ${delay}ms...`);
       await new Promise((r) => setTimeout(r, delay));
 
@@ -244,6 +261,7 @@ export const getEmailConfigStatus = () => {
       hasRefreshToken: !!auth.refreshToken,
       refreshTokenPrefix: auth.refreshToken ? auth.refreshToken.substring(0, 8) : null
     } : null,
+    resolvedIpv4: GMAIL_IPV4,
     dnsOrder: dns.setDefaultResultOrder ? "ipv4first" : "default",
     error: transport.error || null,
     from: resolveFrom(),
